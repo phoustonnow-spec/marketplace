@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: radial-gradient(1100px 600px at 80% -10%, #fffdf8 0%, #f4efe6 60%);
+  min-height: 100vh;
+  color: #1f1b16;
+}
+
+.wordmark {
+  font-family: Georgia, "Cambria", serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(180deg, #5c421f, #2c1e0e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold transition;
+  background: linear-gradient(180deg, #c9a866, #a5813f);
+  color: #241d10;
+}
+.btn:hover { filter: brightness(1.06); }
+.btn-ghost {
+  @apply inline-flex items-center justify-center rounded-lg border px-4 py-2 text-sm font-medium transition;
+  border-color: #d4c8b2; background: transparent; color: #3a3327;
+}
+.btn-ghost:hover { border-color: #a5813f; color: #7a5c2c; }
+.input {
+  @apply w-full rounded-lg border px-3 py-2 text-[15px] outline-none;
+  border-color: #e3dbcb; background: #ece5d8;
+}
+.input:focus { border-color: #a5813f; box-shadow: 0 0 0 3px rgba(165,129,63,.15); }
+.label { @apply mb-1 mt-3 block text-xs uppercase tracking-wider; color: #8a8071; }
+.card { @apply rounded-xl border bg-white; border-color: #e3dbcb; }

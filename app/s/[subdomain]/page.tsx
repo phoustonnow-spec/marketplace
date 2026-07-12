@@ -1,0 +1,95 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import type { Product, Profile } from "@/lib/types";
+
+export const dynamic = "force-dynamic";
+
+export default async function Storefront({
+  params,
+}: {
+  params: { subdomain: string };
+}) {
+  const supabase = createClient();
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("subdomain", params.subdomain)
+    .maybeSingle<Profile>();
+
+  if (!profile) notFound();
+
+  const { data: products = [] } = await supabase
+    .from("products")
+    .select("*")
+    .eq("owner", profile.id)
+    .order("created_at", { ascending: false });
+
+  const ps = (products || []) as Product[];
+  const fmt = (c: number) => "$" + (c / 100).toLocaleString("en-US");
+
+  return (
+    <main className="mx-auto max-w-6xl px-6 pb-24">
+      <header className="flex items-center justify-between border-b border-line py-6">
+        <div>
+          <h1 className="font-serif text-3xl font-bold text-ink">
+            {profile.display_name || profile.subdomain}
+          </h1>
+          <p className="text-sm text-[#8a8071]">
+            {ps.filter((p) => !p.sold).length} items available
+          </p>
+        </div>
+        {profile.social_url && (
+          <a
+            href={profile.social_url}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-ghost"
+          >
+            {profile.social_label || "Visit our page"} ↗
+          </a>
+        )}
+      </header>
+
+      {ps.length === 0 ? (
+        <p className="py-20 text-center text-[#8a8071]">
+          This store hasn’t listed anything yet.
+        </p>
+      ) : (
+        <div className="grid gap-5 py-8 sm:grid-cols-2 lg:grid-cols-4">
+          {ps.map((p) => (
+            <Link
+              key={p.id}
+              href={`/p/${p.id}`}
+              className="card overflow-hidden transition hover:-translate-y-1"
+            >
+              <div className="relative aspect-square bg-sand">
+                {p.photos?.[0] && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={p.photos[0]}
+                    alt={p.name}
+                    className={"h-full w-full object-cover " + (p.sold ? "opacity-50" : "")}
+                  />
+                )}
+                {p.sold && (
+                  <span className="absolute right-2 top-2 rounded-full bg-red-600 px-2 py-1 text-xs font-semibold text-white">
+                    SOLD
+                  </span>
+                )}
+              </div>
+              <div className="p-3">
+                <div className="font-serif text-lg font-semibold">{p.name}</div>
+                <div className="text-golddeep">{fmt(p.price_cents)}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+
+      <footer className="border-t border-line py-6 text-center text-xs text-[#a89e8b]">
+        Powered by <span className="wordmark">market.place</span>
+      </footer>
+    </main>
+  );
+}
