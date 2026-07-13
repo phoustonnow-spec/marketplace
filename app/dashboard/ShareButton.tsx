@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-// Shows a preview of exactly what will be shared (photo + text + purchase link),
-// then shares it (native share sheet on mobile) or copies it (desktop).
+// Shows a preview of exactly what will be shared, with an optional purchase
+// link (toggle), then shares it (native share sheet) or copies it.
 export default function ShareButton({
   title,
   price,
@@ -21,18 +21,21 @@ export default function ShareButton({
 }) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [includePurchase, setIncludePurchase] = useState(true);
 
   function buildText() {
     const lines: string[] = [title];
     if (price) lines.push(price);
     if (text) lines.push("", text);
     if (pay) lines.push("", `Pay me: ${pay}`);
-    lines.push("", "👉 Purchase here:", url);
+    if (includePurchase) lines.push("", "👉 Purchase here:", url);
     return lines.join("\n");
   }
 
   async function share() {
     const shareText = buildText();
+    const base: any = { title, text: shareText };
+    if (includePurchase) base.url = url;
     try {
       if (image && typeof navigator !== "undefined" && (navigator as any).canShare) {
         try {
@@ -42,7 +45,7 @@ export default function ShareButton({
             type: blob.type || "image/jpeg",
           });
           if ((navigator as any).canShare({ files: [file] })) {
-            await (navigator as any).share({ title, text: shareText, url, files: [file] });
+            await (navigator as any).share({ ...base, files: [file] });
             return;
           }
         } catch {
@@ -50,7 +53,7 @@ export default function ShareButton({
         }
       }
       if (typeof navigator !== "undefined" && navigator.share) {
-        await navigator.share({ title, text: shareText, url });
+        await navigator.share(base);
         return;
       }
       await copy();
@@ -115,6 +118,16 @@ export default function ShareButton({
             <pre className="mt-3 whitespace-pre-wrap break-words rounded-lg border border-line bg-cream p-3 font-sans text-sm text-ink">
               {buildText()}
             </pre>
+
+            <label className="mt-3 flex cursor-pointer items-center gap-2 text-sm text-ink">
+              <input
+                type="checkbox"
+                checked={includePurchase}
+                onChange={(e) => setIncludePurchase(e.target.checked)}
+                className="h-4 w-4"
+              />
+              Add a purchase button (buy link)
+            </label>
 
             <div className="mt-3 flex gap-2">
               <button type="button" onClick={share} className="btn flex-1">
