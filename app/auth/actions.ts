@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { isValidSubdomain } from "@/lib/subdomain";
+import { sendOwnerEmail, escapeHtml } from "@/lib/email";
 
 export async function signup(formData: FormData) {
   const name = String(formData.get("name") || "").trim();
@@ -44,6 +45,19 @@ export async function signup(formData: FormData) {
   if (error) {
     redirect("/signup?error=" + encodeURIComponent(error.message));
   }
+
+  // Notify the owner that a new seller registered (no-op until email is set up).
+  await sendOwnerEmail({
+    subject: `New store signup: ${subdomain}`,
+    html:
+      `<p>A new seller just registered on market.place.</p>` +
+      `<ul>` +
+      `<li><b>Name:</b> ${escapeHtml(name)}</li>` +
+      `<li><b>Email:</b> ${escapeHtml(email)}</li>` +
+      `<li><b>Store address:</b> ${escapeHtml(subdomain)}</li>` +
+      `</ul>`,
+  });
+
   redirect("/dashboard");
 }
 

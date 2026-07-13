@@ -13,6 +13,24 @@ async function requireUser() {
   return { supabase, user };
 }
 
+// Secret access code that activates a membership for free (for invited people).
+// Change it by setting an ACCESS_CODE environment variable, or edit the fallback.
+const ACCESS_CODE = process.env.ACCESS_CODE || "Mary";
+
+export async function redeemAccessCode(formData: FormData) {
+  const { supabase, user } = await requireUser();
+  const code = String(formData.get("code") || "").trim();
+  if (code && code.toLowerCase() === ACCESS_CODE.toLowerCase()) {
+    await supabase
+      .from("profiles")
+      .update({ subscription_status: "active", plan: "invite" })
+      .eq("id", user.id);
+    revalidatePath("/dashboard");
+    redirect("/dashboard?code=ok");
+  }
+  redirect("/dashboard?code=bad");
+}
+
 export async function addMaster(formData: FormData) {
   const { supabase, user } = await requireUser();
   const name = String(formData.get("name") || "").trim();

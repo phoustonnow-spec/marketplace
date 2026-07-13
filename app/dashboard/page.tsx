@@ -8,11 +8,16 @@ import {
   toggleSold,
   deleteProduct,
   saveSettings,
+  redeemAccessCode,
 } from "./actions";
 import ProductForm from "./ProductForm";
 import type { Master, Channel, Product, Profile } from "@/lib/types";
 
-export default async function Dashboard() {
+export default async function Dashboard({
+  searchParams,
+}: {
+  searchParams: { code?: string };
+}) {
   const supabase = createClient();
   const {
     data: { user },
@@ -69,16 +74,43 @@ export default async function Dashboard() {
       </header>
 
       {profile && profile.subscription_status !== "active" && (
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gold bg-[#faf3e3] p-4">
-          <span className="text-sm text-golddeep">
-            Your store is in trial mode. Activate your <b>$4/month</b> membership to
-            keep it live.
-          </span>
-          <form action="/api/stripe/checkout" method="post">
-            <button className="btn">Activate membership →</button>
-          </form>
+        <div className="mt-4 rounded-xl border border-gold bg-[#faf3e3] p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <span className="text-sm text-golddeep">
+              Your store is in trial mode. Activate your <b>$4/month</b> membership
+              to keep it live.
+            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <form action="/api/stripe/checkout" method="post">
+                <button className="btn">Activate membership →</button>
+              </form>
+              <form action={redeemAccessCode} className="flex items-center gap-1">
+                <input
+                  name="code"
+                  className="input !w-36 !py-1.5"
+                  placeholder="Access code"
+                  aria-label="Access code"
+                  autoComplete="off"
+                />
+                <button className="btn-ghost">Apply</button>
+              </form>
+            </div>
+          </div>
+          {searchParams?.code === "bad" && (
+            <p className="mt-2 text-sm text-red-700">
+              That code isn’t valid. Check it and try again.
+            </p>
+          )}
         </div>
       )}
+
+      {profile &&
+        profile.subscription_status === "active" &&
+        searchParams?.code === "ok" && (
+          <div className="mt-4 rounded-xl border border-gold bg-[#faf3e3] p-4 text-sm text-golddeep">
+            ✓ Access code accepted — your membership is active. Welcome!
+          </div>
+        )}
 
       <div className="grid gap-8 py-8 md:grid-cols-[280px_1fr]">
         {/* sidebar: categories */}

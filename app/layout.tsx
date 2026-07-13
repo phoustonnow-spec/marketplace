@@ -30,6 +30,17 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
+        <footer className="mx-auto max-w-5xl px-6 py-10 text-center text-xs text-[#8a8071]">
+          <div className="flex flex-wrap justify-center gap-5">
+            <a href="/contact" className="hover:text-golddeep">
+              Contact
+            </a>
+            <a href="/terms" className="hover:text-golddeep">
+              Terms of Service
+            </a>
+          </div>
+          <p className="mt-2">© market.place</p>
+        </footer>
         <RegisterSW />
       </body>
     </html>
