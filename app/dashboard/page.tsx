@@ -111,19 +111,22 @@ export default async function Dashboard({
                 </>
               )}
             </span>
-            <div className="flex flex-wrap items-center gap-2">
-              <form action="/api/stripe/checkout" method="post">
-                <button className="btn">Activate membership →</button>
-              </form>
+            <div className="flex flex-col items-stretch gap-2 sm:items-end">
               <form action={redeemAccessCode} className="flex items-center gap-1">
                 <input
                   name="code"
-                  className="input !w-36 !py-1.5"
-                  placeholder="Access code"
-                  aria-label="Access code"
+                  className="input !w-40 !py-1.5"
+                  placeholder="Invite / test code"
+                  aria-label="Invite or test code"
                   autoComplete="off"
                 />
-                <button className="btn-ghost">Apply</button>
+                <button className="btn-ghost whitespace-nowrap">Apply code</button>
+              </form>
+              <span className="text-xs text-[#8a8071]">
+                Have an invite or test code? Enter it to activate free — no payment.
+              </span>
+              <form action="/api/stripe/checkout" method="post">
+                <button className="btn w-full">Subscribe — $4/month</button>
               </form>
             </div>
           </div>
@@ -314,7 +317,7 @@ export default async function Dashboard({
                       <input type="hidden" name="id" value={p.id} />
                       <input type="hidden" name="on_sheet" value={String(p.on_sheet)} />
                       <button className="btn-ghost !px-2 !py-1 text-xs">
-                        {p.on_sheet ? "On sheet ✓" : "+ Sheet"}
+                        {p.on_sheet ? "On sales sheet ✓" : "Add to sales sheet"}
                       </button>
                     </form>
                     <form action={toggleSold}>

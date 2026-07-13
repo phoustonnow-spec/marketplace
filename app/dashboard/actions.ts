@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 async function requireUser() {
   const supabase = createClient();
@@ -18,14 +19,15 @@ async function requireUser() {
 const ACCESS_CODE = process.env.ACCESS_CODE || "Mary";
 
 export async function redeemAccessCode(formData: FormData) {
-  const { supabase, user } = await requireUser();
+  const { user } = await requireUser();
   const code = String(formData.get("code") || "").trim();
   if (code && code.toLowerCase() === ACCESS_CODE.toLowerCase()) {
-    await supabase
+    const admin = createAdminClient();
+    await admin
       .from("profiles")
       .update({ subscription_status: "active", plan: "invite" })
       .eq("id", user.id);
-    revalidatePath("/dashboard");
+    revalidatePath("/dashboard", "layout");
     redirect("/dashboard?code=ok");
   }
   redirect("/dashboard?code=bad");
@@ -175,8 +177,9 @@ export async function deleteChannel(formData: FormData) {
 }
 
 export async function saveSettings(formData: FormData) {
-  const { supabase, user } = await requireUser();
-  await supabase
+  const { user } = await requireUser();
+  const admin = createAdminClient();
+  await admin
     .from("profiles")
     .update({
       display_name: String(formData.get("display_name") || "").trim(),

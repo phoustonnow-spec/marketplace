@@ -14,8 +14,11 @@ export async function signup(formData: FormData) {
     .trim()
     .toLowerCase();
 
-  if (!name || !email || !password || !subdomain) {
-    redirect("/signup?error=" + encodeURIComponent("Please fill in every field."));
+  if (!email || !password || !subdomain) {
+    redirect(
+      "/signup?error=" +
+        encodeURIComponent("Please enter an email, password, and store address.")
+    );
   }
   if (!isValidSubdomain(subdomain)) {
     redirect(

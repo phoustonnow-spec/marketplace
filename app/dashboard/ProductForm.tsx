@@ -90,8 +90,29 @@ export default function ProductForm({
         </button>
       </div>
 
-      <label className="label">Photos</label>
-      <input type="file" accept="image/*" multiple onChange={handleFiles} />
+      <label className="label">Photos (add one or more)</label>
+      <div className="flex flex-wrap gap-2">
+        <label className="btn-ghost cursor-pointer">
+          ＋ Add photos
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleFiles}
+            className="hidden"
+          />
+        </label>
+        <label className="btn-ghost cursor-pointer">
+          📷 Take photo
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onChange={handleFiles}
+            className="hidden"
+          />
+        </label>
+      </div>
       {uploading && <p className="mt-1 text-sm text-[#8a8071]">Uploading…</p>}
       {photos.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2">

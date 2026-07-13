@@ -1,13 +1,21 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { signup } from "@/app/auth/actions";
 import { ROOT_DOMAIN } from "@/lib/subdomain";
 import PasswordField from "@/app/PasswordField";
+import { createClient } from "@/lib/supabase/server";
 
-export default function SignupPage({
+export default async function SignupPage({
   searchParams,
 }: {
   searchParams: { error?: string };
 }) {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (user) redirect("/dashboard");
+
   const root = ROOT_DOMAIN.split(":")[0];
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6">
@@ -20,7 +28,7 @@ export default function SignupPage({
         </div>
 
         <form action={signup} className="mt-6">
-          <label className="label">Full name</label>
+          <label className="label">Full name (optional)</label>
           <input name="name" className="input" placeholder="Jane Aventine" />
 
           <label className="label">Choose your subdomain</label>
