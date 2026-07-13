@@ -24,10 +24,12 @@ export default async function SalesSheet() {
     .from("products")
     .select("*")
     .eq("owner", user.id)
-    .eq("on_sheet", true)
     .order("created_at", { ascending: false });
 
-  const ps = (products || []) as Product[];
+  const all = (products || []) as Product[];
+  const onSheet = all.filter((p) => p.on_sheet);
+  const available = all.filter((p) => !p.on_sheet);
+
   const fmt = (c: number) => "$" + (c / 100).toLocaleString("en-US");
   const storeName = profile?.display_name || profile?.subdomain || "market.place";
 
@@ -40,6 +42,44 @@ export default async function SalesSheet() {
         <PrintButton />
       </header>
 
+      {/* Item picker — build the sheet from here. Hidden when printing. */}
+      <details className="no-print mt-5 rounded-xl border border-line bg-cream p-4" open={onSheet.length === 0}>
+        <summary className="cursor-pointer font-serif text-lg font-semibold text-ink">
+          ＋ Add items to this sheet
+          {available.length > 0 ? ` (${available.length} available)` : ""}
+        </summary>
+        {available.length === 0 ? (
+          <p className="mt-3 text-sm text-[#8a8071]">
+            All of your items are already on the sheet.
+          </p>
+        ) : (
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {available.map((p) => (
+              <div
+                key={p.id}
+                className="flex items-center gap-3 rounded-lg border border-line bg-white p-2"
+              >
+                <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded bg-sand">
+                  {p.photos?.[0] && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={p.photos[0]} alt="" className="h-full w-full object-cover" />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-sm font-medium text-ink">{p.name}</div>
+                  <div className="text-xs text-golddeep">{fmt(p.price_cents)}</div>
+                </div>
+                <form action={toggleSheet}>
+                  <input type="hidden" name="id" value={p.id} />
+                  <input type="hidden" name="on_sheet" value={String(p.on_sheet)} />
+                  <button className="btn !px-3 !py-1 text-xs">Add</button>
+                </form>
+              </div>
+            ))}
+          </div>
+        )}
+      </details>
+
       <div className="py-6 text-center">
         <h1 className="font-serif text-4xl font-bold text-ink">{storeName}</h1>
         <p className="mt-1 text-sm uppercase tracking-[0.28em] text-gold">
@@ -47,14 +87,13 @@ export default async function SalesSheet() {
         </p>
       </div>
 
-      {ps.length === 0 ? (
-        <p className="no-print py-16 text-center text-[#8a8071]">
-          Your sales sheet is empty. Open a brand, find an item, and click
-          “Add to sales sheet.”
+      {onSheet.length === 0 ? (
+        <p className="no-print py-10 text-center text-[#8a8071]">
+          Your sales sheet is empty. Use “Add items to this sheet” above to add some.
         </p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2">
-          {ps.map((p) => (
+          {onSheet.map((p) => (
             <div key={p.id} className="card overflow-hidden">
               <div className="aspect-[4/3] bg-sand">
                 {p.photos?.[0] && (
