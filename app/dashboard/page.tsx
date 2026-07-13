@@ -24,7 +24,7 @@ import type { Master, Channel, Product, Profile } from "@/lib/types";
 export default async function Dashboard({
   searchParams,
 }: {
-  searchParams: { code?: string };
+  searchParams: { code?: string; sub?: string };
 }) {
   const supabase = createClient();
   const {
@@ -112,13 +112,22 @@ export default async function Dashboard({
         </div>
       )}
 
-      {profile &&
-        profile.subscription_status === "active" &&
-        searchParams?.code === "ok" && (
-          <div className="mt-4 rounded-xl border border-gold bg-[#faf3e3] p-4 text-sm text-golddeep">
-            ✓ Access code accepted — your membership is active. Welcome!
-          </div>
-        )}
+      {profile && profile.subscription_status === "active" && (
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-gold bg-[#faf3e3] p-3 text-sm">
+          <span className="text-golddeep">
+            ✓ Your membership is active.
+            {searchParams?.sub === "success" && " Thank you for subscribing!"}
+            {searchParams?.code === "ok" && " Welcome!"}
+          </span>
+          {profile.stripe_customer_id && (
+            <form action="/api/stripe/portal" method="post">
+              <button className="btn-ghost !py-1 text-xs">
+                Manage / cancel membership
+              </button>
+            </form>
+          )}
+        </div>
+      )}
 
       <div className="grid gap-8 py-8 md:grid-cols-[280px_1fr]">
         {/* sidebar: categories */}
