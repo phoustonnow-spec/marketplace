@@ -130,6 +130,12 @@ export default async function Dashboard({
         </div>
       )}
 
+      {searchParams?.saved === "1" && (
+        <div className="mt-4 rounded-xl border border-gold bg-[#faf3e3] p-3 text-center text-sm font-medium text-golddeep">
+          ✓ Your store settings were saved.
+        </div>
+      )}
+
       {profile && profile.subscription_status !== "active" && (
         <div className="mt-4 rounded-xl border border-gold bg-[#faf3e3] p-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
