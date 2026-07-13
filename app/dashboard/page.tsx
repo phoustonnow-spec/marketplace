@@ -21,6 +21,7 @@ import ShareButton from "./ShareButton";
 import MoveSelect from "./MoveSelect";
 import CopyLink from "./CopyLink";
 import AvatarUpload from "./AvatarUpload";
+import SubmitButton from "./SubmitButton";
 import { THEMES } from "@/lib/themes";
 import { storeIsLive, trialHoursLeft } from "@/lib/trial";
 import type { Master, Channel, Product, Profile } from "@/lib/types";
@@ -484,7 +485,7 @@ export default async function Dashboard({
               <input name="paypal" className="input" defaultValue={profile?.paypal || ""} />
               <label className="label">Zelle email/phone</label>
               <input name="zelle" className="input" defaultValue={profile?.zelle || ""} />
-              <button className="btn mt-4">Save settings</button>
+              <SubmitButton className="btn mt-4">Save settings</SubmitButton>
             </form>
           </details>
         </section>

@@ -205,8 +205,8 @@ export async function saveSettings(formData: FormData) {
     })
     .eq("id", user.id);
   revalidatePath("/dashboard", "layout");
-  // Redirect with a flag so the dashboard can show a clear "Saved ✓" message.
-  redirect("/dashboard?saved=1");
+  // Redirect (scrolls to settings) with a flag so the dashboard shows "Saved ✓".
+  redirect("/dashboard?saved=1#settings");
 }
 
 // Used by Google/Apple sign-ups (who never picked one) to set their store
