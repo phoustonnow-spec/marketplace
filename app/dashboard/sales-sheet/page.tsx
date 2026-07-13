@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { ROOT_DOMAIN } from "@/lib/subdomain";
 import { toggleSheet } from "../actions";
 import PrintButton from "./PrintButton";
 import type { Product, Profile } from "@/lib/types";
@@ -32,6 +33,8 @@ export default async function SalesSheet() {
 
   const fmt = (c: number) => "$" + (c / 100).toLocaleString("en-US");
   const storeName = profile?.display_name || profile?.subdomain || "market.place";
+  const root = ROOT_DOMAIN.split(":")[0];
+  const storeBase = profile ? `https://${profile.subdomain}.${root}` : "";
 
   return (
     <main className="mx-auto max-w-4xl px-6 pb-24">
@@ -141,6 +144,14 @@ export default async function SalesSheet() {
                 </div>
                 {p.description && (
                   <p className="mt-1 text-sm text-[#6b6152]">{p.description}</p>
+                )}
+                {storeBase && !p.sold && (
+                  <a
+                    href={`${storeBase}/p/${p.id}`}
+                    className="mt-2 inline-block rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-ink"
+                  >
+                    Purchase this item →
+                  </a>
                 )}
                 <form action={toggleSheet} className="no-print mt-3">
                   <input type="hidden" name="id" value={p.id} />

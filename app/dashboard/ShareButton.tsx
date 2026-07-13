@@ -23,7 +23,7 @@ export default function ShareButton({
     if (price) lines.push(price);
     if (text) lines.push("", text);
     if (pay) lines.push("", `Pay me: ${pay}`);
-    lines.push("", url);
+    lines.push("", "👉 Purchase here:", url);
     return lines.join("\n");
   }
 
