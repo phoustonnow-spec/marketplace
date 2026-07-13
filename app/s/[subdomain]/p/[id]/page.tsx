@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { storeIsLive } from "@/lib/trial";
+import { themeAccent } from "@/lib/themes";
 import type { Product, Profile } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -57,9 +58,18 @@ export default async function ProductPage({
   const fmt = (c: number) => "$" + (c / 100).toLocaleString("en-US");
   const pay = paypalUrl(profile.paypal);
   const venmo = venmoUrl(profile.venmo);
+  const accent = themeAccent(profile.theme);
 
   return (
-    <main className="mx-auto max-w-5xl px-6 pb-24">
+    <main
+      className="mx-auto max-w-5xl px-6 pb-24"
+      style={
+        {
+          "--accent": accent.accent,
+          "--accent-deep": accent.accentDeep,
+        } as React.CSSProperties
+      }
+    >
       <div className="py-6">
         <Link href="/" className="btn-ghost">
           ← {profile.display_name || profile.subdomain}
@@ -79,7 +89,9 @@ export default async function ProductPage({
 
         <div>
           <h1 className="font-serif text-4xl font-bold text-ink">{product.name}</h1>
-          <div className="mt-2 text-2xl text-golddeep">{fmt(product.price_cents)}</div>
+          <div className="mt-2 text-2xl" style={{ color: "var(--accent-deep)" }}>
+            {fmt(product.price_cents)}
+          </div>
           {product.sold && (
             <span className="mt-2 inline-block rounded-full bg-red-600 px-3 py-1 text-xs font-semibold text-white">
               SOLD
@@ -95,6 +107,7 @@ export default async function ProductPage({
               <a
                 href={`/checkout/${product.id}`}
                 className="btn mb-2 block w-full py-3 text-center"
+                style={{ background: "var(--accent)" }}
               >
                 Purchase Now
               </a>

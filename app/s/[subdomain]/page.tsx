@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { storeIsLive } from "@/lib/trial";
+import { themeAccent } from "@/lib/themes";
 import type { Product, Profile, Master, Channel } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -58,17 +59,39 @@ export default async function Storefront({
 
   const ps = (products || []) as Product[];
   const fmt = (c: number) => "$" + (c / 100).toLocaleString("en-US");
+  const accent = themeAccent(profile.theme);
 
   return (
-    <main className="mx-auto max-w-6xl px-6 pb-24">
+    <main
+      className="mx-auto max-w-6xl px-6 pb-24"
+      style={
+        {
+          "--accent": accent.accent,
+          "--accent-deep": accent.accentDeep,
+        } as React.CSSProperties
+      }
+    >
       <header className="flex items-center justify-between border-b border-line py-6">
-        <div>
-          <h1 className="font-serif text-3xl font-bold text-ink">
-            {profile.display_name || profile.subdomain}
-          </h1>
-          <p className="text-sm text-[#8a8071]">
-            {ps.filter((p) => !p.sold).length} items available
-          </p>
+        <div className="flex items-center gap-4">
+          {profile.avatar_url && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={profile.avatar_url}
+              alt=""
+              className="h-16 w-16 rounded-full border border-line object-cover"
+            />
+          )}
+          <div>
+            <h1
+              className="font-serif text-3xl font-bold"
+              style={{ color: "var(--accent-deep)" }}
+            >
+              {profile.display_name || profile.subdomain}
+            </h1>
+            <p className="text-sm text-[#8a8071]">
+              {ps.filter((p) => !p.sold).length} items available
+            </p>
+          </div>
         </div>
         {profile.social_url && (
           <a
@@ -146,7 +169,9 @@ export default async function Storefront({
               </div>
               <div className="p-3">
                 <div className="font-serif text-lg font-semibold">{p.name}</div>
-                <div className="text-golddeep">{fmt(p.price_cents)}</div>
+                <div style={{ color: "var(--accent-deep)" }}>
+                  {fmt(p.price_cents)}
+                </div>
               </div>
             </Link>
           ))}

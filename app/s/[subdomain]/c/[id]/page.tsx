@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { storeIsLive } from "@/lib/trial";
+import { themeAccent } from "@/lib/themes";
 import type { Product, Profile, Master, Channel } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -61,9 +62,18 @@ export default async function CategoryPage({
   }
 
   const fmt = (c: number) => "$" + (c / 100).toLocaleString("en-US");
+  const accent = themeAccent(profile.theme);
 
   return (
-    <main className="mx-auto max-w-6xl px-6 pb-24">
+    <main
+      className="mx-auto max-w-6xl px-6 pb-24"
+      style={
+        {
+          "--accent": accent.accent,
+          "--accent-deep": accent.accentDeep,
+        } as React.CSSProperties
+      }
+    >
       <header className="border-b border-line py-6">
         <Link href="/" className="text-sm text-[#8a8071] hover:text-golddeep">
           ← {profile.display_name || profile.subdomain}
@@ -85,7 +95,10 @@ export default async function CategoryPage({
           .filter((c) => products.some((p) => p.channel_id === c.id))
           .map((c) => (
             <section key={c.id} id={c.id} className="scroll-mt-4 py-6">
-              <h2 className="mb-3 font-serif text-xl font-semibold text-golddeep">
+              <h2
+                className="mb-3 font-serif text-xl font-semibold"
+                style={{ color: "var(--accent-deep)" }}
+              >
                 {c.name}
               </h2>
               <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -119,7 +132,9 @@ export default async function CategoryPage({
                         <div className="font-serif text-lg font-semibold">
                           {p.name}
                         </div>
-                        <div className="text-golddeep">{fmt(p.price_cents)}</div>
+                        <div style={{ color: "var(--accent-deep)" }}>
+                          {fmt(p.price_cents)}
+                        </div>
                       </div>
                     </Link>
                   ))}

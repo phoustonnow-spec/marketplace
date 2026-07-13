@@ -195,6 +195,15 @@ export async function saveSettings(formData: FormData) {
       zelle: String(formData.get("zelle") || "").trim(),
     })
     .eq("id", user.id);
+  // Photo + theme live in newer columns; update them separately so a missing
+  // column (before the migration is run) can't block the rest of the save.
+  await admin
+    .from("profiles")
+    .update({
+      avatar_url: String(formData.get("avatar_url") || "").trim() || null,
+      theme: String(formData.get("theme") || "gold").trim(),
+    })
+    .eq("id", user.id);
   revalidatePath("/dashboard", "layout");
   // Redirect with a flag so the dashboard can show a clear "Saved ✓" message.
   redirect("/dashboard?saved=1");

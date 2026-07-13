@@ -20,6 +20,8 @@ import ProductForm from "./ProductForm";
 import ShareButton from "./ShareButton";
 import MoveSelect from "./MoveSelect";
 import CopyLink from "./CopyLink";
+import AvatarUpload from "./AvatarUpload";
+import { THEMES } from "@/lib/themes";
 import { storeIsLive, trialHoursLeft } from "@/lib/trial";
 import type { Master, Channel, Product, Profile } from "@/lib/types";
 
@@ -419,6 +421,31 @@ export default async function Dashboard({
             </p>
 
             <form action={saveSettings} className="mt-3 max-w-lg">
+              <label className="label">Store profile photo</label>
+              <AvatarUpload userId={user.id} initial={profile?.avatar_url} />
+
+              <label className="label">Store color theme</label>
+              <div className="flex flex-wrap gap-2">
+                {Object.entries(THEMES).map(([key, t]) => (
+                  <label
+                    key={key}
+                    className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-line px-2.5 py-1.5 text-sm"
+                  >
+                    <input
+                      type="radio"
+                      name="theme"
+                      value={key}
+                      defaultChecked={(profile?.theme || "gold") === key}
+                    />
+                    <span
+                      className="inline-block h-4 w-4 rounded-full"
+                      style={{ background: t.accent }}
+                    />
+                    {t.label}
+                  </label>
+                ))}
+              </div>
+
               <label className="label">Store display name</label>
               <input
                 name="display_name"

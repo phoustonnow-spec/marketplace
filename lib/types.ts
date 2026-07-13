@@ -10,6 +10,8 @@ export type Profile = {
   venmo: string | null;
   paypal: string | null;
   zelle: string | null;
+  avatar_url?: string | null;
+  theme?: string | null;
   created_at?: string | null;
 };
 
