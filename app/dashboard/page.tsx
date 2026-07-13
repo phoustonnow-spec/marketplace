@@ -19,6 +19,7 @@ import {
 import ProductForm from "./ProductForm";
 import ShareButton from "./ShareButton";
 import MoveSelect from "./MoveSelect";
+import CopyLink from "./CopyLink";
 import { storeIsLive, trialHoursLeft } from "@/lib/trial";
 import type { Master, Channel, Product, Profile } from "@/lib/types";
 
@@ -38,6 +39,11 @@ export default async function Dashboard({
     .select("*")
     .eq("id", user.id)
     .maybeSingle<Profile>();
+
+  // Google/Apple sign-ups get an auto address (store-xxxx) — send them to pick one.
+  if (profile && profile.subdomain?.startsWith("store-")) {
+    redirect("/dashboard/setup");
+  }
 
   const { data: masters = [] } = await supabase
     .from("masters")
@@ -91,6 +97,31 @@ export default async function Dashboard({
           </form>
         </div>
       </header>
+
+      {profile && (
+        <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl border border-line bg-cream p-3 text-sm">
+          <span className="font-medium text-[#8a8071]">Your store link:</span>
+          <a
+            href={storeUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium text-golddeep hover:underline"
+          >
+            {profile.subdomain}.{root}
+          </a>
+          <div className="flex gap-2">
+            <CopyLink text={storeUrl} label="Copy store link" />
+            <a
+              href={storeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-ghost !py-1 text-xs"
+            >
+              Open ↗
+            </a>
+          </div>
+        </div>
+      )}
 
       {profile && profile.subscription_status !== "active" && (
         <div className="mt-4 rounded-xl border border-gold bg-[#faf3e3] p-4">

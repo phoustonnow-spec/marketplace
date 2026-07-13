@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { isValidSubdomain } from "@/lib/subdomain";
 
 async function requireUser() {
   const supabase = createClient();
@@ -197,4 +198,44 @@ export async function saveSettings(formData: FormData) {
   revalidatePath("/dashboard", "layout");
   // Redirect with a flag so the dashboard can show a clear "Saved ✓" message.
   redirect("/dashboard?saved=1");
+}
+
+// Used by Google/Apple sign-ups (who never picked one) to set their store
+// address, and by anyone who wants to change it.
+export async function setStoreAddress(formData: FormData) {
+  const { user } = await requireUser();
+  const subdomain = String(formData.get("subdomain") || "")
+    .trim()
+    .toLowerCase();
+  const display_name = String(formData.get("display_name") || "").trim();
+
+  if (!isValidSubdomain(subdomain)) {
+    redirect(
+      "/dashboard/setup?error=" +
+        encodeURIComponent("Use 2–32 letters, numbers, or hyphens (e.g. janes).")
+    );
+  }
+
+  const admin = createAdminClient();
+  const { data: taken } = await admin
+    .from("profiles")
+    .select("id")
+    .eq("subdomain", subdomain)
+    .neq("id", user.id)
+    .maybeSingle();
+  if (taken) {
+    redirect(
+      "/dashboard/setup?error=" +
+        encodeURIComponent(`“${subdomain}” is already taken — try another.`)
+    );
+  }
+
+  await admin
+    .from("profiles")
+    .update({
+      subdomain,
+      ...(display_name ? { display_name } : {}),
+    })
+    .eq("id", user.id);
+  redirect("/dashboard");
 }
