@@ -65,15 +65,17 @@ export default async function CategoryPage({
   const accent = themeAccent(profile.theme);
 
   return (
-    <main
-      className="mx-auto max-w-6xl px-6 pb-24"
+    <div
+      className="min-h-screen"
       style={
         {
           "--accent": accent.accent,
           "--accent-deep": accent.accentDeep,
+          background: accent.bg,
         } as React.CSSProperties
       }
     >
+    <main className="mx-auto max-w-6xl px-6 pb-24">
       <Link
         href="/"
         className="mt-6 inline-block text-sm text-[#8a8071] hover:text-golddeep"
@@ -149,5 +151,6 @@ export default async function CategoryPage({
           ))
       )}
     </main>
+    </div>
   );
 }

@@ -61,15 +61,17 @@ export default async function ProductPage({
   const accent = themeAccent(profile.theme);
 
   return (
-    <main
-      className="mx-auto max-w-5xl px-6 pb-24"
+    <div
+      className="min-h-screen"
       style={
         {
           "--accent": accent.accent,
           "--accent-deep": accent.accentDeep,
+          background: accent.bg,
         } as React.CSSProperties
       }
     >
+    <main className="mx-auto max-w-5xl px-6 pb-24">
       <div className="py-6">
         <Link href="/" className="btn-ghost">
           ← {profile.display_name || profile.subdomain}
@@ -142,5 +144,6 @@ export default async function ProductPage({
         </div>
       </div>
     </main>
+    </div>
   );
 }

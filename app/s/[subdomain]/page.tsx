@@ -62,15 +62,17 @@ export default async function Storefront({
   const accent = themeAccent(profile.theme);
 
   return (
-    <main
-      className="mx-auto max-w-6xl px-6 pb-24"
+    <div
+      className="min-h-screen"
       style={
         {
           "--accent": accent.accent,
           "--accent-deep": accent.accentDeep,
+          background: accent.bg,
         } as React.CSSProperties
       }
     >
+    <main className="mx-auto max-w-6xl px-6 pb-24">
       <header
         className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl px-6 py-7"
         style={{ background: "var(--accent)" }}
@@ -178,5 +180,6 @@ export default async function Storefront({
         </div>
       )}
     </main>
+    </div>
   );
 }
