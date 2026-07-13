@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ROOT_DOMAIN } from "@/lib/subdomain";
 import { createClient } from "@/lib/supabase/server";
+import InstallAppButton from "./InstallAppButton";
 
 export default async function Home() {
   const supabase = createClient();
@@ -45,13 +46,14 @@ export default async function Home() {
           </span>
           . Take payments by card, Venmo, PayPal, or Zelle.
         </p>
-        <div className="mt-8 flex justify-center gap-3">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link href="/signup" className="btn px-6 py-3 text-base">
             Start your store — $4/mo
           </Link>
           <Link href="/login" className="btn-ghost px-6 py-3 text-base">
             Sign in
           </Link>
+          <InstallAppButton className="btn-ghost px-6 py-3 text-base" />
         </div>
       </section>
 
