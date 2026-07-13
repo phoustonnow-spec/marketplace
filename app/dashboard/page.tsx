@@ -215,7 +215,9 @@ export default async function Dashboard({
               <li key={m.id} className="text-sm">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-medium text-ink">{m.name}</span>
-                  <details className="text-xs">
+                  <div className="flex items-center gap-2">
+                    <CopyLink text={`${storeUrl}/c/${m.id}`} label="Link" />
+                    <details className="text-xs">
                     <summary className="cursor-pointer list-none font-medium text-golddeep hover:underline">
                       Edit
                     </summary>
@@ -236,7 +238,8 @@ export default async function Dashboard({
                         </button>
                       </form>
                     </div>
-                  </details>
+                    </details>
+                  </div>
                 </div>
                 <ul className="ml-3 mt-1 space-y-1">
                   {cs

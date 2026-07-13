@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { storeIsLive } from "@/lib/trial";
-import type { Product, Profile } from "@/lib/types";
+import type { Product, Profile, Master, Channel } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +43,19 @@ export default async function Storefront({
     .eq("owner", profile.id)
     .order("created_at", { ascending: false });
 
+  const { data: masters = [] } = await supabase
+    .from("masters")
+    .select("*")
+    .eq("owner", profile.id)
+    .order("created_at");
+  const { data: channels = [] } = await supabase
+    .from("channels")
+    .select("*")
+    .eq("owner", profile.id)
+    .order("created_at");
+  const ms = (masters || []) as Master[];
+  const cs = (channels || []) as Channel[];
+
   const ps = (products || []) as Product[];
   const fmt = (c: number) => "$" + (c / 100).toLocaleString("en-US");
 
@@ -68,6 +81,41 @@ export default async function Storefront({
           </a>
         )}
       </header>
+
+      {ms.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2 border-b border-line py-4">
+          <span className="mr-1 text-xs uppercase tracking-wider text-[#8a8071]">
+            Shop by category
+          </span>
+          {ms.map((m) => {
+            const designers = cs.filter((c) => c.master_id === m.id);
+            return (
+              <details key={m.id} className="relative">
+                <summary className="btn-ghost cursor-pointer list-none !py-1.5 text-sm">
+                  {m.name} ▾
+                </summary>
+                <div className="absolute z-10 mt-1 min-w-[190px] rounded-lg border border-line bg-white p-2 shadow-lg">
+                  <Link
+                    href={`/c/${m.id}`}
+                    className="block rounded px-2 py-1 text-sm font-semibold text-golddeep hover:bg-cream"
+                  >
+                    View all {m.name} →
+                  </Link>
+                  {designers.map((c) => (
+                    <Link
+                      key={c.id}
+                      href={`/c/${m.id}#${c.id}`}
+                      className="block rounded px-2 py-1 text-sm text-[#6b6152] hover:bg-cream"
+                    >
+                      {c.name}
+                    </Link>
+                  ))}
+                </div>
+              </details>
+            );
+          })}
+        </div>
+      )}
 
       {ps.length === 0 ? (
         <p className="py-20 text-center text-[#8a8071]">
