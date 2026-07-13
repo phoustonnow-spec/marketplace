@@ -143,36 +143,40 @@ export async function toggleSheet(formData: FormData) {
   revalidatePath("/dashboard", "layout");
 }
 
-// ---- Category (master + channel) editing ----
+// ---- Category (master + designer) editing ----
 export async function renameMaster(formData: FormData) {
-  const { supabase, user } = await requireUser();
+  const { user } = await requireUser();
+  const admin = createAdminClient();
   const id = String(formData.get("id") || "");
   const name = String(formData.get("name") || "").trim();
   if (id && name)
-    await supabase.from("masters").update({ name }).eq("id", id).eq("owner", user.id);
+    await admin.from("masters").update({ name }).eq("id", id).eq("owner", user.id);
   revalidatePath("/dashboard", "layout");
 }
 
 export async function deleteMaster(formData: FormData) {
-  const { supabase, user } = await requireUser();
+  const { user } = await requireUser();
+  const admin = createAdminClient();
   const id = String(formData.get("id") || "");
-  if (id) await supabase.from("masters").delete().eq("id", id).eq("owner", user.id);
+  if (id) await admin.from("masters").delete().eq("id", id).eq("owner", user.id);
   revalidatePath("/dashboard", "layout");
 }
 
 export async function renameChannel(formData: FormData) {
-  const { supabase, user } = await requireUser();
+  const { user } = await requireUser();
+  const admin = createAdminClient();
   const id = String(formData.get("id") || "");
   const name = String(formData.get("name") || "").trim();
   if (id && name)
-    await supabase.from("channels").update({ name }).eq("id", id).eq("owner", user.id);
+    await admin.from("channels").update({ name }).eq("id", id).eq("owner", user.id);
   revalidatePath("/dashboard", "layout");
 }
 
 export async function deleteChannel(formData: FormData) {
-  const { supabase, user } = await requireUser();
+  const { user } = await requireUser();
+  const admin = createAdminClient();
   const id = String(formData.get("id") || "");
-  if (id) await supabase.from("channels").delete().eq("id", id).eq("owner", user.id);
+  if (id) await admin.from("channels").delete().eq("id", id).eq("owner", user.id);
   redirect("/dashboard");
 }
 

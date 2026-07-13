@@ -183,8 +183,8 @@ export default async function Dashboard({
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-medium text-ink">{m.name}</span>
                   <details className="text-xs">
-                    <summary className="cursor-pointer list-none text-[#a89e8b]">
-                      ⋯
+                    <summary className="cursor-pointer list-none font-medium text-golddeep hover:underline">
+                      Edit
                     </summary>
                     <div className="mt-1 rounded-lg border border-line bg-cream p-2">
                       <form action={renameMaster} className="flex gap-1">
@@ -220,8 +220,8 @@ export default async function Dashboard({
                           {c.name} →
                         </Link>
                         <details className="text-xs">
-                          <summary className="cursor-pointer list-none text-[#a89e8b]">
-                            ⋯
+                          <summary className="cursor-pointer list-none font-medium text-golddeep hover:underline">
+                            Edit
                           </summary>
                           <div className="mt-1 rounded-lg border border-line bg-cream p-2">
                             <form action={renameChannel} className="flex gap-1">
