@@ -127,7 +127,13 @@ export default async function ChannelPage({
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {ps.map((p) => (
             <div key={p.id} className="card overflow-hidden">
-              <div className="relative aspect-square bg-sand">
+              <a
+                href={`${storeBase}/p/${p.id}`}
+                target="_blank"
+                rel="noreferrer"
+                title="View item"
+                className="relative block aspect-square bg-sand"
+              >
                 {p.photos?.[0] && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -146,7 +152,7 @@ export default async function ChannelPage({
                     On sheet
                   </span>
                 )}
-              </div>
+              </a>
               <div className="p-3">
                 <div className="font-serif text-lg font-semibold">{p.name}</div>
                 <div className="text-golddeep">{fmt(p.price_cents)}</div>

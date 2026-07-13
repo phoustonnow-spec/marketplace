@@ -210,78 +210,90 @@ export default async function Dashboard({
               Sales sheet →
             </Link>
           </div>
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {ms.map((m) => (
               <li key={m.id} className="text-sm">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-medium text-ink">{m.name}</span>
-                  <div className="flex items-center gap-2">
-                    <CopyLink text={`${storeUrl}/c/${m.id}`} label="Link" />
+                <details open className="group">
+                  <summary className="flex cursor-pointer list-none items-center gap-1 font-medium text-ink hover:text-golddeep">
+                    <span className="text-[10px] text-[#a89e8b] transition group-open:rotate-90">
+                      ▸
+                    </span>
+                    {m.name}
+                  </summary>
+
+                  <ul className="ml-4 mt-1 space-y-1">
+                    {cs
+                      .filter((c) => c.master_id === m.id)
+                      .map((c) => (
+                        <li
+                          key={c.id}
+                          className="flex items-center justify-between gap-2"
+                        >
+                          <Link
+                            href={`/dashboard/channel/${c.id}`}
+                            className="text-sm text-[#6b6152] hover:text-golddeep hover:underline"
+                          >
+                            {c.name} →
+                          </Link>
+                          <details className="text-xs">
+                            <summary className="cursor-pointer list-none text-golddeep hover:underline">
+                              Edit
+                            </summary>
+                            <div className="mt-1 rounded-lg border border-line bg-cream p-2">
+                              <form action={renameChannel} className="flex gap-1">
+                                <input type="hidden" name="id" value={c.id} />
+                                <input
+                                  name="name"
+                                  defaultValue={c.name}
+                                  className="input !py-1 !text-xs"
+                                />
+                                <button className="btn-ghost !px-2 !py-1 text-xs">
+                                  Save
+                                </button>
+                              </form>
+                              <form action={deleteChannel} className="mt-1">
+                                <input type="hidden" name="id" value={c.id} />
+                                <button className="text-xs text-red-600">
+                                  Delete designer
+                                </button>
+                              </form>
+                            </div>
+                          </details>
+                        </li>
+                      ))}
+                    {cs.filter((c) => c.master_id === m.id).length === 0 && (
+                      <li className="text-xs text-[#a89e8b]">No designers yet.</li>
+                    )}
+                  </ul>
+
+                  <div className="ml-4 mt-1 flex items-center gap-3">
+                    <CopyLink text={`${storeUrl}/c/${m.id}`} label="Copy link" />
                     <details className="text-xs">
-                    <summary className="cursor-pointer list-none font-medium text-golddeep hover:underline">
-                      Edit
-                    </summary>
-                    <div className="mt-1 rounded-lg border border-line bg-cream p-2">
-                      <form action={renameMaster} className="flex gap-1">
-                        <input type="hidden" name="id" value={m.id} />
-                        <input
-                          name="name"
-                          defaultValue={m.name}
-                          className="input !py-1 !text-xs"
-                        />
-                        <button className="btn-ghost !px-2 !py-1 text-xs">Save</button>
-                      </form>
-                      <form action={deleteMaster} className="mt-1">
-                        <input type="hidden" name="id" value={m.id} />
-                        <button className="text-xs text-red-600">
-                          Delete category
-                        </button>
-                      </form>
-                    </div>
+                      <summary className="cursor-pointer list-none text-golddeep hover:underline">
+                        Edit category
+                      </summary>
+                      <div className="mt-1 rounded-lg border border-line bg-cream p-2">
+                        <form action={renameMaster} className="flex gap-1">
+                          <input type="hidden" name="id" value={m.id} />
+                          <input
+                            name="name"
+                            defaultValue={m.name}
+                            className="input !py-1 !text-xs"
+                          />
+                          <button className="btn-ghost !px-2 !py-1 text-xs">
+                            Save
+                          </button>
+                        </form>
+                        <form action={deleteMaster} className="mt-1">
+                          <input type="hidden" name="id" value={m.id} />
+                          <button className="text-xs text-red-600">
+                            Delete category
+                          </button>
+                        </form>
+                      </div>
                     </details>
                   </div>
-                </div>
-                <ul className="ml-3 mt-1 space-y-1">
-                  {cs
-                    .filter((c) => c.master_id === m.id)
-                    .map((c) => (
-                      <li
-                        key={c.id}
-                        className="flex items-center justify-between gap-2"
-                      >
-                        <Link
-                          href={`/dashboard/channel/${c.id}`}
-                          className="text-sm text-[#6b6152] hover:text-golddeep hover:underline"
-                        >
-                          {c.name} →
-                        </Link>
-                        <details className="text-xs">
-                          <summary className="cursor-pointer list-none font-medium text-golddeep hover:underline">
-                            Edit
-                          </summary>
-                          <div className="mt-1 rounded-lg border border-line bg-cream p-2">
-                            <form action={renameChannel} className="flex gap-1">
-                              <input type="hidden" name="id" value={c.id} />
-                              <input
-                                name="name"
-                                defaultValue={c.name}
-                                className="input !py-1 !text-xs"
-                              />
-                              <button className="btn-ghost !px-2 !py-1 text-xs">
-                                Save
-                              </button>
-                            </form>
-                            <form action={deleteChannel} className="mt-1">
-                              <input type="hidden" name="id" value={c.id} />
-                              <button className="text-xs text-red-600">
-                                Delete designer
-                              </button>
-                            </form>
-                          </div>
-                        </details>
-                      </li>
-                    ))}
-                </ul>
+                </details>
               </li>
             ))}
             {ms.length === 0 && (
