@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ROOT_DOMAIN } from "@/lib/subdomain";
@@ -9,8 +10,14 @@ import {
   deleteProduct,
   saveSettings,
   redeemAccessCode,
+  renameMaster,
+  deleteMaster,
+  renameChannel,
+  deleteChannel,
+  toggleSheet,
 } from "./actions";
 import ProductForm from "./ProductForm";
+import ShareButton from "./ShareButton";
 import type { Master, Channel, Product, Profile } from "@/lib/types";
 
 export default async function Dashboard({
@@ -115,19 +122,83 @@ export default async function Dashboard({
       <div className="grid gap-8 py-8 md:grid-cols-[280px_1fr]">
         {/* sidebar: categories */}
         <aside>
-          <h2 className="mb-2 text-xs uppercase tracking-wider text-[#8a8071]">
-            Master categories
-          </h2>
-          <ul className="space-y-1">
+          <div className="mb-2 flex items-center justify-between">
+            <h2 className="text-xs uppercase tracking-wider text-[#8a8071]">
+              Master categories
+            </h2>
+            <Link
+              href="/dashboard/sales-sheet"
+              className="text-xs text-golddeep hover:underline"
+            >
+              Sales sheet →
+            </Link>
+          </div>
+          <ul className="space-y-2">
             {ms.map((m) => (
-              <li key={m.id} className="text-sm font-medium text-ink">
-                {m.name}
-                <ul className="ml-3 mt-1 space-y-0.5">
+              <li key={m.id} className="text-sm">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-medium text-ink">{m.name}</span>
+                  <details className="text-xs">
+                    <summary className="cursor-pointer list-none text-[#a89e8b]">
+                      ⋯
+                    </summary>
+                    <div className="mt-1 rounded-lg border border-line bg-cream p-2">
+                      <form action={renameMaster} className="flex gap-1">
+                        <input type="hidden" name="id" value={m.id} />
+                        <input
+                          name="name"
+                          defaultValue={m.name}
+                          className="input !py-1 !text-xs"
+                        />
+                        <button className="btn-ghost !px-2 !py-1 text-xs">Save</button>
+                      </form>
+                      <form action={deleteMaster} className="mt-1">
+                        <input type="hidden" name="id" value={m.id} />
+                        <button className="text-xs text-red-600">
+                          Delete category
+                        </button>
+                      </form>
+                    </div>
+                  </details>
+                </div>
+                <ul className="ml-3 mt-1 space-y-1">
                   {cs
                     .filter((c) => c.master_id === m.id)
                     .map((c) => (
-                      <li key={c.id} className="text-sm text-[#6b6152]">
-                        {c.name}
+                      <li
+                        key={c.id}
+                        className="flex items-center justify-between gap-2"
+                      >
+                        <Link
+                          href={`/dashboard/channel/${c.id}`}
+                          className="text-sm text-[#6b6152] hover:text-golddeep hover:underline"
+                        >
+                          {c.name} →
+                        </Link>
+                        <details className="text-xs">
+                          <summary className="cursor-pointer list-none text-[#a89e8b]">
+                            ⋯
+                          </summary>
+                          <div className="mt-1 rounded-lg border border-line bg-cream p-2">
+                            <form action={renameChannel} className="flex gap-1">
+                              <input type="hidden" name="id" value={c.id} />
+                              <input
+                                name="name"
+                                defaultValue={c.name}
+                                className="input !py-1 !text-xs"
+                              />
+                              <button className="btn-ghost !px-2 !py-1 text-xs">
+                                Save
+                              </button>
+                            </form>
+                            <form action={deleteChannel} className="mt-1">
+                              <input type="hidden" name="id" value={c.id} />
+                              <button className="text-xs text-red-600">
+                                Delete brand
+                              </button>
+                            </form>
+                          </div>
+                        </details>
                       </li>
                     ))}
                 </ul>
@@ -187,7 +258,25 @@ export default async function Dashboard({
                 <div className="p-3">
                   <div className="font-serif text-lg font-semibold">{p.name}</div>
                   <div className="text-golddeep">{fmt(p.price_cents)}</div>
-                  <div className="mt-2 flex gap-2">
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <ProductForm
+                      channels={channelOpts}
+                      userId={user.id}
+                      product={p}
+                    />
+                    <ShareButton
+                      title={p.name}
+                      text={p.description}
+                      url={`${storeUrl}/p/${p.id}`}
+                      image={p.photos?.[0]}
+                    />
+                    <form action={toggleSheet}>
+                      <input type="hidden" name="id" value={p.id} />
+                      <input type="hidden" name="on_sheet" value={String(p.on_sheet)} />
+                      <button className="btn-ghost !px-2 !py-1 text-xs">
+                        {p.on_sheet ? "On sheet ✓" : "+ Sheet"}
+                      </button>
+                    </form>
                     <form action={toggleSold}>
                       <input type="hidden" name="id" value={p.id} />
                       <input type="hidden" name="sold" value={String(p.sold)} />

@@ -2,18 +2,24 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { addProduct } from "./actions";
+import { addProduct, updateProduct } from "./actions";
+import type { Product } from "@/lib/types";
 
 type ChannelOpt = { id: string; name: string; masterName: string };
 
 export default function ProductForm({
   channels,
   userId,
+  defaultChannelId,
+  product,
 }: {
   channels: ChannelOpt[];
   userId: string;
+  defaultChannelId?: string;
+  product?: Product;
 }) {
-  const [photos, setPhotos] = useState<string[]>([]);
+  const isEdit = !!product;
+  const [photos, setPhotos] = useState<string[]>(product?.photos || []);
   const [uploading, setUploading] = useState(false);
   const [open, setOpen] = useState(false);
   const supabase = createClient();
@@ -40,8 +46,20 @@ export default function ProductForm({
     e.target.value = "";
   }
 
+  function removePhoto(url: string) {
+    setPhotos((p) => p.filter((u) => u !== url));
+  }
+
   if (!open) {
-    return (
+    return isEdit ? (
+      <button
+        type="button"
+        className="btn-ghost !px-2 !py-1 text-xs"
+        onClick={() => setOpen(true)}
+      >
+        Edit
+      </button>
+    ) : (
       <button className="btn" onClick={() => setOpen(true)}>
         + Add item
       </button>
@@ -52,14 +70,21 @@ export default function ProductForm({
     <form
       action={async (fd) => {
         fd.set("photos", JSON.stringify(photos));
-        await addProduct(fd);
-        setPhotos([]);
+        if (isEdit) {
+          fd.set("id", product!.id);
+          await updateProduct(fd);
+        } else {
+          await addProduct(fd);
+          setPhotos([]);
+        }
         setOpen(false);
       }}
       className="card mt-4 p-5"
     >
       <div className="flex items-center justify-between">
-        <h3 className="font-serif text-xl font-semibold">Add item</h3>
+        <h3 className="font-serif text-xl font-semibold">
+          {isEdit ? "Edit item" : "Add item"}
+        </h3>
         <button type="button" className="text-[#8a8071]" onClick={() => setOpen(false)}>
           ✕
         </button>
@@ -71,22 +96,36 @@ export default function ProductForm({
       {photos.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2">
           {photos.map((u, i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={i}
-              src={u}
-              alt=""
-              className="h-16 w-16 rounded-md object-cover"
-            />
+            <div key={i} className="relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={u} alt="" className="h-16 w-16 rounded-md object-cover" />
+              <button
+                type="button"
+                onClick={() => removePhoto(u)}
+                className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-ink text-xs text-white"
+                aria-label="Remove photo"
+              >
+                ✕
+              </button>
+            </div>
           ))}
         </div>
       )}
 
       <label className="label">Item name</label>
-      <input name="name" className="input" placeholder="e.g. Neverfull MM Monogram" />
+      <input
+        name="name"
+        defaultValue={product?.name || ""}
+        className="input"
+        placeholder="e.g. Neverfull MM Monogram"
+      />
 
       <label className="label">Category → channel</label>
-      <select name="channel_id" className="input">
+      <select
+        name="channel_id"
+        defaultValue={product?.channel_id || defaultChannelId || ""}
+        className="input"
+      >
         <option value="">— none —</option>
         {channels.map((c) => (
           <option key={c.id} value={c.id}>
@@ -96,17 +135,26 @@ export default function ProductForm({
       </select>
 
       <label className="label">Price (USD)</label>
-      <input name="price" type="number" min="0" step="1" className="input" placeholder="0" />
+      <input
+        name="price"
+        type="number"
+        min="0"
+        step="1"
+        defaultValue={product ? product.price_cents / 100 : ""}
+        className="input"
+        placeholder="0"
+      />
 
       <label className="label">Description</label>
       <textarea
         name="description"
+        defaultValue={product?.description || ""}
         className="input min-h-[90px]"
         placeholder="Condition, size, what's included…"
       />
 
       <button className="btn mt-4 w-full py-2" disabled={uploading}>
-        Add to inventory
+        {isEdit ? "Save changes" : "Add to inventory"}
       </button>
     </form>
   );

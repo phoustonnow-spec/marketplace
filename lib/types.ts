@@ -23,5 +23,6 @@ export type Product = {
   description: string | null;
   photos: string[];
   sold: boolean;
+  on_sheet: boolean;
   created_at: string;
 };

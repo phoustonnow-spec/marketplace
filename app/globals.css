@@ -40,3 +40,9 @@ body {
 .input:focus { border-color: #a5813f; box-shadow: 0 0 0 3px rgba(165,129,63,.15); }
 .label { @apply mb-1 mt-3 block text-xs uppercase tracking-wider; color: #8a8071; }
 .card { @apply rounded-xl border bg-white; border-color: #e3dbcb; }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+  .card { break-inside: avoid; }
+}

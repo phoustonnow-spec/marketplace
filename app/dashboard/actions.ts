@@ -68,7 +68,35 @@ export async function addProduct(formData: FormData) {
     photos,
     sold: false,
   });
-  revalidatePath("/dashboard");
+  revalidatePath("/dashboard", "layout");
+}
+
+export async function updateProduct(formData: FormData) {
+  const { supabase, user } = await requireUser();
+  const id = String(formData.get("id") || "");
+  const name = String(formData.get("name") || "").trim();
+  const channel_id = String(formData.get("channel_id") || "") || null;
+  const description = String(formData.get("description") || "").trim();
+  const priceDollars = parseFloat(String(formData.get("price") || "0")) || 0;
+  let photos: string[] = [];
+  try {
+    photos = JSON.parse(String(formData.get("photos") || "[]"));
+  } catch {
+    photos = [];
+  }
+  if (!id || !name) return;
+  await supabase
+    .from("products")
+    .update({
+      name,
+      channel_id,
+      description,
+      price_cents: Math.round(priceDollars * 100),
+      photos,
+    })
+    .eq("id", id)
+    .eq("owner", user.id);
+  revalidatePath("/dashboard", "layout");
 }
 
 export async function toggleSold(formData: FormData) {
@@ -76,14 +104,60 @@ export async function toggleSold(formData: FormData) {
   const id = String(formData.get("id") || "");
   const sold = String(formData.get("sold") || "") === "true";
   await supabase.from("products").update({ sold: !sold }).eq("id", id).eq("owner", user.id);
-  revalidatePath("/dashboard");
+  revalidatePath("/dashboard", "layout");
 }
 
 export async function deleteProduct(formData: FormData) {
   const { supabase, user } = await requireUser();
   const id = String(formData.get("id") || "");
   await supabase.from("products").delete().eq("id", id).eq("owner", user.id);
-  revalidatePath("/dashboard");
+  revalidatePath("/dashboard", "layout");
+}
+
+// Add/remove an item from the sales sheet.
+export async function toggleSheet(formData: FormData) {
+  const { supabase, user } = await requireUser();
+  const id = String(formData.get("id") || "");
+  const on = String(formData.get("on_sheet") || "") === "true";
+  await supabase
+    .from("products")
+    .update({ on_sheet: !on })
+    .eq("id", id)
+    .eq("owner", user.id);
+  revalidatePath("/dashboard", "layout");
+}
+
+// ---- Category (master + channel) editing ----
+export async function renameMaster(formData: FormData) {
+  const { supabase, user } = await requireUser();
+  const id = String(formData.get("id") || "");
+  const name = String(formData.get("name") || "").trim();
+  if (id && name)
+    await supabase.from("masters").update({ name }).eq("id", id).eq("owner", user.id);
+  revalidatePath("/dashboard", "layout");
+}
+
+export async function deleteMaster(formData: FormData) {
+  const { supabase, user } = await requireUser();
+  const id = String(formData.get("id") || "");
+  if (id) await supabase.from("masters").delete().eq("id", id).eq("owner", user.id);
+  revalidatePath("/dashboard", "layout");
+}
+
+export async function renameChannel(formData: FormData) {
+  const { supabase, user } = await requireUser();
+  const id = String(formData.get("id") || "");
+  const name = String(formData.get("name") || "").trim();
+  if (id && name)
+    await supabase.from("channels").update({ name }).eq("id", id).eq("owner", user.id);
+  revalidatePath("/dashboard", "layout");
+}
+
+export async function deleteChannel(formData: FormData) {
+  const { supabase, user } = await requireUser();
+  const id = String(formData.get("id") || "");
+  if (id) await supabase.from("channels").delete().eq("id", id).eq("owner", user.id);
+  redirect("/dashboard");
 }
 
 export async function saveSettings(formData: FormData) {
