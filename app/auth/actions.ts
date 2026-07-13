@@ -82,6 +82,37 @@ export async function logout() {
   redirect("/");
 }
 
+async function oauth(provider: "google" | "apple") {
+  const h = headers();
+  const host = h.get("host") || "";
+  const proto = host.includes("localhost") ? "http" : "https";
+  const origin = `${proto}://${host}`;
+
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider,
+    options: { redirectTo: `${origin}/auth/callback` },
+  });
+
+  if (error || !data?.url) {
+    redirect(
+      "/login?error=" +
+        encodeURIComponent(
+          "Couldn’t start sign-in. That option may not be turned on yet."
+        )
+    );
+  }
+  redirect(data.url);
+}
+
+export async function signInWithGoogle() {
+  await oauth("google");
+}
+
+export async function signInWithApple() {
+  await oauth("apple");
+}
+
 // Step 1 of "forgot password": email the user a reset link.
 export async function requestPasswordReset(formData: FormData) {
   const email = String(formData.get("email") || "").trim().toLowerCase();

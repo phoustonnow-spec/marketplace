@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { signup } from "@/app/auth/actions";
 import { ROOT_DOMAIN } from "@/lib/subdomain";
 import PasswordField from "@/app/PasswordField";
+import OAuthButtons from "@/app/OAuthButtons";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function SignupPage({
@@ -27,7 +28,11 @@ export default async function SignupPage({
           </p>
         </div>
 
-        <form action={signup} className="mt-6">
+        <div className="mt-6">
+          <OAuthButtons />
+        </div>
+
+        <form action={signup}>
           <label className="label">Full name (optional)</label>
           <input name="name" className="input" placeholder="Jane Aventine" />
 

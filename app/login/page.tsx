@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { login } from "@/app/auth/actions";
 import PasswordField from "@/app/PasswordField";
+import OAuthButtons from "@/app/OAuthButtons";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function LoginPage({
@@ -25,7 +26,11 @@ export default async function LoginPage({
           </p>
         </div>
 
-        <form action={login} className="mt-6">
+        <div className="mt-6">
+          <OAuthButtons />
+        </div>
+
+        <form action={login}>
           <label className="label">Email</label>
           <input name="email" type="email" className="input" placeholder="you@example.com" />
 
