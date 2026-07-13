@@ -51,6 +51,9 @@ export default function RootLayout({
             <a href="/invite" className="hover:text-golddeep">
               Share
             </a>
+            <a href="/gift" className="hover:text-golddeep">
+              Gift
+            </a>
             <a href="/contact" className="hover:text-golddeep">
               Contact
             </a>

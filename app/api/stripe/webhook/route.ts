@@ -22,16 +22,24 @@ export async function POST(req: Request) {
 
   if (event.type === "checkout.session.completed") {
     const s = event.data.object as Stripe.Checkout.Session;
-    const uid = s.metadata?.uid;
-    if (uid) {
+    if (s.metadata?.gift === "true" && s.metadata?.recipient) {
+      // A gifted membership — activate the recipient's store by subdomain.
       await admin
         .from("profiles")
-        .update({
-          subscription_status: "active",
-          plan: "seller",
-          stripe_customer_id: (s.customer as string) || null,
-        })
-        .eq("id", uid);
+        .update({ subscription_status: "active", plan: "gift" })
+        .eq("subdomain", s.metadata.recipient);
+    } else {
+      const uid = s.metadata?.uid;
+      if (uid) {
+        await admin
+          .from("profiles")
+          .update({
+            subscription_status: "active",
+            plan: "seller",
+            stripe_customer_id: (s.customer as string) || null,
+          })
+          .eq("id", uid);
+      }
     }
   }
 
