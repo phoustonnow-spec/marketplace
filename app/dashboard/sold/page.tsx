@@ -94,6 +94,7 @@ export default async function SoldPage() {
                   <ProductForm channels={channelOpts} userId={user.id} product={p} />
                   <ShareButton
                     title={p.name}
+                    price={fmt(p.price_cents)}
                     text={p.description}
                     url={`${storeBase}/p/${p.id}`}
                     image={p.photos?.[0]}

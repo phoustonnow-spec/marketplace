@@ -272,6 +272,7 @@ export default async function Dashboard({
                     />
                     <ShareButton
                       title={p.name}
+                      price={fmt(p.price_cents)}
                       text={p.description}
                       url={`${storeUrl}/p/${p.id}`}
                       image={p.photos?.[0]}

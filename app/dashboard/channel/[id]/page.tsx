@@ -157,6 +157,7 @@ export default async function ChannelPage({
                   />
                   <ShareButton
                     title={p.name}
+                    price={fmt(p.price_cents)}
                     text={p.description}
                     url={`${storeBase}/p/${p.id}`}
                     image={p.photos?.[0]}
