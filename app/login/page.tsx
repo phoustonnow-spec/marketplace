@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { login } from "@/app/auth/actions";
+import PasswordField from "@/app/PasswordField";
 
 export default function LoginPage({
   searchParams,
@@ -21,7 +22,12 @@ export default function LoginPage({
           <input name="email" type="email" className="input" placeholder="you@example.com" />
 
           <label className="label">Password</label>
-          <input name="password" type="password" className="input" placeholder="••••••••" />
+          <PasswordField name="password" autoComplete="current-password" />
+          <div className="mt-2 text-right">
+            <Link href="/forgot" className="text-xs text-golddeep underline">
+              Forgot password?
+            </Link>
+          </div>
 
           {searchParams.error && (
             <p className="mt-3 text-sm text-red-600">{searchParams.error}</p>

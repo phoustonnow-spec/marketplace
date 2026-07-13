@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { signup } from "@/app/auth/actions";
 import { ROOT_DOMAIN } from "@/lib/subdomain";
+import PasswordField from "@/app/PasswordField";
 
 export default function SignupPage({
   searchParams,
@@ -39,7 +40,7 @@ export default function SignupPage({
           <input name="email" type="email" className="input" placeholder="you@example.com" />
 
           <label className="label">Password</label>
-          <input name="password" type="password" className="input" placeholder="••••••••" />
+          <PasswordField name="password" autoComplete="new-password" />
 
           {searchParams.error && (
             <p className="mt-3 text-sm text-red-600">{searchParams.error}</p>

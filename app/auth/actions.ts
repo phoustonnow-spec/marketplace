@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { isValidSubdomain } from "@/lib/subdomain";
 import { sendOwnerEmail, escapeHtml } from "@/lib/email";
@@ -76,4 +77,51 @@ export async function logout() {
   const supabase = createClient();
   await supabase.auth.signOut();
   redirect("/");
+}
+
+// Step 1 of "forgot password": email the user a reset link.
+export async function requestPasswordReset(formData: FormData) {
+  const email = String(formData.get("email") || "").trim().toLowerCase();
+  if (!email) {
+    redirect("/forgot?state=error");
+  }
+
+  const h = headers();
+  const host = h.get("host") || "";
+  const proto = host.includes("localhost") ? "http" : "https";
+  const origin = `${proto}://${host}`;
+
+  const supabase = createClient();
+  await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/auth/reset-callback`,
+  });
+
+  // Always report success so we don't reveal which emails have accounts.
+  redirect("/forgot?state=sent");
+}
+
+// Step 2 of "forgot password": save the new password (user arrives with a
+// session already established by /auth/reset-callback).
+export async function updatePassword(formData: FormData) {
+  const password = String(formData.get("password") || "");
+  if (password.length < 6) {
+    redirect("/reset?state=short");
+  }
+
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    redirect(
+      "/login?error=" +
+        encodeURIComponent("Your reset link expired. Please request a new one.")
+    );
+  }
+
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) {
+    redirect("/reset?state=error");
+  }
+  redirect("/dashboard");
 }
