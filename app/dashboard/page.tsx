@@ -91,6 +91,9 @@ export default async function Dashboard({
           market.place
         </Link>
         <div className="flex items-center gap-3 text-sm">
+          <a href="#settings" className="btn-ghost">
+            ⚙ Settings
+          </a>
           {profile && (
             <a href={storeUrl} target="_blank" className="btn-ghost" rel="noreferrer">
               View store ↗ {profile.subdomain}.{root}
@@ -405,9 +408,9 @@ export default async function Dashboard({
           </div>
 
           {/* settings */}
-          <details className="card mt-10 p-5" open={searchParams?.saved === "1"}>
+          <details id="settings" className="card mt-10 p-5" open>
             <summary className="cursor-pointer font-serif text-xl font-semibold">
-              Store settings — page link &amp; payments
+              Store settings — photo, colors, link &amp; payments
             </summary>
 
             {searchParams?.saved === "1" && (
