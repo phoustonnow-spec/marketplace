@@ -85,7 +85,9 @@ export default async function Dashboard({
   return (
     <main className="mx-auto max-w-6xl px-6 pb-24">
       <header className="flex flex-wrap items-center justify-between gap-3 border-b border-line py-5">
-        <span className="wordmark text-2xl">market.place</span>
+        <Link href="/" className="wordmark text-2xl">
+          market.place
+        </Link>
         <div className="flex items-center gap-3 text-sm">
           {profile && (
             <a href={storeUrl} target="_blank" className="btn-ghost" rel="noreferrer">

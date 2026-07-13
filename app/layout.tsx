@@ -48,6 +48,9 @@ export default function RootLayout({
         {children}
         <footer className="mx-auto max-w-5xl px-6 py-10 text-center text-xs text-[#8a8071]">
           <div className="flex flex-wrap justify-center gap-5">
+            <a href="/" className="hover:text-golddeep">
+              Home
+            </a>
             <a href="/about" className="hover:text-golddeep">
               About
             </a>
