@@ -127,7 +127,7 @@ export default async function Storefront({
                   {designers.map((c) => (
                     <Link
                       key={c.id}
-                      href={`/c/${m.id}#${c.id}`}
+                      href={`/d/${c.id}`}
                       className="block rounded px-2 py-1 text-sm text-[#6b6152] hover:bg-cream"
                     >
                       {c.name}

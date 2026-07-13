@@ -237,6 +237,8 @@ export default async function Dashboard({
                           >
                             {c.name} →
                           </Link>
+                          <div className="flex items-center gap-2">
+                          <CopyLink text={`${storeUrl}/d/${c.id}`} label="Link" />
                           <details className="text-xs">
                             <summary className="cursor-pointer list-none text-golddeep hover:underline">
                               Edit
@@ -261,6 +263,7 @@ export default async function Dashboard({
                               </form>
                             </div>
                           </details>
+                          </div>
                         </li>
                       ))}
                     {cs.filter((c) => c.master_id === m.id).length === 0 && (
