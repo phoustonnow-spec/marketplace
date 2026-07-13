@@ -80,7 +80,7 @@ export default async function ProductPage({
                 href={`/checkout/${product.id}`}
                 className="btn mb-2 block w-full py-3 text-center"
               >
-                🔒 Buy securely — address &amp; pay
+                Purchase Now
               </a>
               {venmo && (
                 <a href={venmo} target="_blank" rel="noreferrer" className="mb-2 block w-full rounded-lg bg-[#3d95ce] py-3 text-center font-semibold text-white">
