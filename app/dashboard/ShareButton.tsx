@@ -9,17 +9,20 @@ export default function ShareButton({
   text,
   url,
   image,
+  pay,
 }: {
   title: string;
   price?: string;
   text?: string | null;
   url: string;
   image?: string | null;
+  pay?: string;
 }) {
   function buildText() {
     const lines: string[] = [title];
     if (price) lines.push(price);
     if (text) lines.push("", text);
+    if (pay) lines.push("", `Pay me: ${pay}`);
     lines.push("", url);
     return lines.join("\n");
   }

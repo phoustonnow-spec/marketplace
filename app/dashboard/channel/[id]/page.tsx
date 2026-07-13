@@ -70,6 +70,13 @@ export default async function ChannelPage({
   const root = ROOT_DOMAIN.split(":")[0];
   const storeBase = profile ? `https://${profile.subdomain}.${root}` : "";
   const fmt = (c: number) => "$" + (c / 100).toLocaleString("en-US");
+  const payLine = [
+    profile?.venmo ? `Venmo @${profile.venmo.replace(/^@/, "")}` : "",
+    profile?.paypal ? `PayPal ${profile.paypal}` : "",
+    profile?.zelle ? `Zelle ${profile.zelle}` : "",
+  ]
+    .filter(Boolean)
+    .join(" · ");
 
   return (
     <main className="mx-auto max-w-6xl px-6 pb-24">
@@ -161,6 +168,7 @@ export default async function ChannelPage({
                     text={p.description}
                     url={`${storeBase}/p/${p.id}`}
                     image={p.photos?.[0]}
+                    pay={payLine}
                   />
                   <form action={toggleSheet}>
                     <input type="hidden" name="id" value={p.id} />

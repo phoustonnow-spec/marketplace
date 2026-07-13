@@ -24,7 +24,7 @@ import type { Master, Channel, Product, Profile } from "@/lib/types";
 export default async function Dashboard({
   searchParams,
 }: {
-  searchParams: { code?: string; sub?: string };
+  searchParams: { code?: string; sub?: string; saved?: string };
 }) {
   const supabase = createClient();
   const {
@@ -64,6 +64,13 @@ export default async function Dashboard({
   const root = ROOT_DOMAIN.split(":")[0];
   const storeUrl = profile ? `https://${profile.subdomain}.${root}` : "#";
   const fmt = (cents: number) => "$" + (cents / 100).toLocaleString("en-US");
+  const payLine = [
+    profile?.venmo ? `Venmo @${profile.venmo.replace(/^@/, "")}` : "",
+    profile?.paypal ? `PayPal ${profile.paypal}` : "",
+    profile?.zelle ? `Zelle ${profile.zelle}` : "",
+  ]
+    .filter(Boolean)
+    .join(" · ");
 
   return (
     <main className="mx-auto max-w-6xl px-6 pb-24">
@@ -285,6 +292,7 @@ export default async function Dashboard({
                       text={p.description}
                       url={`${storeUrl}/p/${p.id}`}
                       image={p.photos?.[0]}
+                      pay={payLine}
                     />
                     <form action={toggleSheet}>
                       <input type="hidden" name="id" value={p.id} />
@@ -318,10 +326,24 @@ export default async function Dashboard({
           </div>
 
           {/* settings */}
-          <details className="card mt-10 p-5">
+          <details className="card mt-10 p-5" open={searchParams?.saved === "1"}>
             <summary className="cursor-pointer font-serif text-xl font-semibold">
               Store settings — page link &amp; payments
             </summary>
+
+            {searchParams?.saved === "1" && (
+              <p className="mt-3 rounded-lg border border-gold bg-[#faf3e3] px-3 py-2 text-sm text-golddeep">
+                ✓ Saved! Your store settings were updated.
+              </p>
+            )}
+
+            <p className="mt-3 max-w-lg text-sm text-[#6b6152]">
+              These are your public shop details. Add a payment option (Venmo,
+              PayPal, or Zelle) and it becomes a button buyers can tap to pay you
+              directly. Leave a box empty to hide it. <b>Click “Save settings”
+              after any change</b> — the panel closes when it saves.
+            </p>
+
             <form action={saveSettings} className="mt-3 max-w-lg">
               <label className="label">Store display name</label>
               <input

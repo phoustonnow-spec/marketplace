@@ -187,5 +187,7 @@ export async function saveSettings(formData: FormData) {
       zelle: String(formData.get("zelle") || "").trim(),
     })
     .eq("id", user.id);
-  revalidatePath("/dashboard");
+  revalidatePath("/dashboard", "layout");
+  // Redirect with a flag so the dashboard can show a clear "Saved ✓" message.
+  redirect("/dashboard?saved=1");
 }

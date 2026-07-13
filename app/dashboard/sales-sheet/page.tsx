@@ -87,6 +87,31 @@ export default async function SalesSheet() {
         </p>
       </div>
 
+      {(profile?.venmo || profile?.paypal || profile?.zelle) && (
+        <div className="mb-6 rounded-xl border border-line bg-cream p-4 text-center text-sm">
+          <span className="text-xs uppercase tracking-wider text-[#8a8071]">
+            How to pay
+          </span>
+          <div className="mt-1 flex flex-wrap justify-center gap-x-6 gap-y-1 text-ink">
+            {profile?.venmo && (
+              <span>
+                <b>Venmo:</b> @{profile.venmo.replace(/^@/, "")}
+              </span>
+            )}
+            {profile?.paypal && (
+              <span>
+                <b>PayPal:</b> {profile.paypal}
+              </span>
+            )}
+            {profile?.zelle && (
+              <span>
+                <b>Zelle:</b> {profile.zelle}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+
       {onSheet.length === 0 ? (
         <p className="no-print py-10 text-center text-[#8a8071]">
           Your sales sheet is empty. Use “Add items to this sheet” above to add some.
