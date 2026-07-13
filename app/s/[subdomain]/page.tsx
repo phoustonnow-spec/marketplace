@@ -71,24 +71,24 @@ export default async function Storefront({
         } as React.CSSProperties
       }
     >
-      <header className="flex items-center justify-between border-b border-line py-6">
+      <header
+        className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl px-6 py-7"
+        style={{ background: "var(--accent)" }}
+      >
         <div className="flex items-center gap-4">
           {profile.avatar_url && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={profile.avatar_url}
               alt=""
-              className="h-16 w-16 rounded-full border border-line object-cover"
+              className="h-16 w-16 rounded-full border-2 border-white/70 object-cover"
             />
           )}
           <div>
-            <h1
-              className="font-serif text-3xl font-bold"
-              style={{ color: "var(--accent-deep)" }}
-            >
+            <h1 className="font-serif text-3xl font-bold text-white">
               {profile.display_name || profile.subdomain}
             </h1>
-            <p className="text-sm text-[#8a8071]">
+            <p className="text-sm text-white/80">
               {ps.filter((p) => !p.sold).length} items available
             </p>
           </div>
@@ -98,7 +98,7 @@ export default async function Storefront({
             href={profile.social_url}
             target="_blank"
             rel="noreferrer"
-            className="btn-ghost"
+            className="rounded-lg border border-white/60 px-3 py-1.5 text-sm text-white hover:bg-white/10"
           >
             {profile.social_label || "Visit our page"} ↗
           </a>
@@ -177,10 +177,6 @@ export default async function Storefront({
           ))}
         </div>
       )}
-
-      <footer className="border-t border-line py-6 text-center text-xs text-[#a89e8b]">
-        Powered by <span className="wordmark">market.place</span>
-      </footer>
     </main>
   );
 }

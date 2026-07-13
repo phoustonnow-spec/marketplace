@@ -74,14 +74,20 @@ export default async function CategoryPage({
         } as React.CSSProperties
       }
     >
-      <header className="border-b border-line py-6">
-        <Link href="/" className="text-sm text-[#8a8071] hover:text-golddeep">
-          ← {profile.display_name || profile.subdomain}
-        </Link>
-        <h1 className="mt-1 font-serif text-3xl font-bold text-ink">
+      <Link
+        href="/"
+        className="mt-6 inline-block text-sm text-[#8a8071] hover:text-golddeep"
+      >
+        ← {profile.display_name || profile.subdomain}
+      </Link>
+      <header
+        className="mt-2 rounded-2xl px-6 py-6"
+        style={{ background: "var(--accent)" }}
+      >
+        <h1 className="font-serif text-3xl font-bold text-white">
           {master.name}
         </h1>
-        <p className="text-sm text-[#8a8071]">
+        <p className="text-sm text-white/80">
           {products.filter((p) => !p.sold).length} items available
         </p>
       </header>
