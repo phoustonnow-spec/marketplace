@@ -351,7 +351,7 @@ export default async function Dashboard({
                 className="input"
                 defaultValue={profile?.display_name || ""}
               />
-              <label className="label">Your page / social link</label>
+              <label className="label">Your page / social link (optional)</label>
               <input
                 name="social_url"
                 className="input"
