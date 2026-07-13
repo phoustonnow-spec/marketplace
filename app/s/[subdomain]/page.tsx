@@ -1,9 +1,23 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { storeIsLive } from "@/lib/trial";
 import type { Product, Profile } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
+
+function StorePaused({ name }: { name: string }) {
+  return (
+    <main className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-6 text-center">
+      <span className="wordmark text-2xl">market.place</span>
+      <h1 className="mt-4 font-serif text-3xl font-bold text-ink">{name}</h1>
+      <p className="mt-3 text-[#6b6152]">
+        This shop is taking a short break and isn’t open right now. Please check
+        back soon.
+      </p>
+    </main>
+  );
+}
 
 export default async function Storefront({
   params,
@@ -18,6 +32,10 @@ export default async function Storefront({
     .maybeSingle<Profile>();
 
   if (!profile) notFound();
+
+  if (!storeIsLive(profile)) {
+    return <StorePaused name={profile.display_name || profile.subdomain} />;
+  }
 
   const { data: products = [] } = await supabase
     .from("products")

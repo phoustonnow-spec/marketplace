@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { storeIsLive } from "@/lib/trial";
 import type { Product, Profile } from "@/lib/types";
 import CheckoutForm from "./CheckoutForm";
 
@@ -17,6 +18,7 @@ export default async function CheckoutPage({
     .eq("subdomain", params.subdomain)
     .maybeSingle<Profile>();
   if (!profile) notFound();
+  if (!storeIsLive(profile)) notFound();
 
   const { data: product } = await supabase
     .from("products")

@@ -19,6 +19,7 @@ import {
 import ProductForm from "./ProductForm";
 import ShareButton from "./ShareButton";
 import MoveSelect from "./MoveSelect";
+import { storeIsLive, trialHoursLeft } from "@/lib/trial";
 import type { Master, Channel, Product, Profile } from "@/lib/types";
 
 export default async function Dashboard({
@@ -92,8 +93,23 @@ export default async function Dashboard({
         <div className="mt-4 rounded-xl border border-gold bg-[#faf3e3] p-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <span className="text-sm text-golddeep">
-              Your store is in trial mode. Activate your <b>$4/month</b> membership
-              to keep it live.
+              {storeIsLive(profile) ? (
+                <>
+                  Free trial —{" "}
+                  <b>
+                    about {trialHoursLeft(profile)} hour
+                    {trialHoursLeft(profile) === 1 ? "" : "s"} left
+                  </b>
+                  . Activate your <b>$4/month</b> membership to keep your store
+                  live.
+                </>
+              ) : (
+                <>
+                  ⚠️ Your free trial has ended and your store is{" "}
+                  <b>paused for shoppers</b>. Activate your <b>$4/month</b>
+                  membership (or enter an access code) to bring it back.
+                </>
+              )}
             </span>
             <div className="flex flex-wrap items-center gap-2">
               <form action="/api/stripe/checkout" method="post">

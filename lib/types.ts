@@ -10,6 +10,7 @@ export type Profile = {
   venmo: string | null;
   paypal: string | null;
   zelle: string | null;
+  created_at?: string | null;
 };
 
 export type Master = { id: string; owner: string; name: string; created_at: string };
