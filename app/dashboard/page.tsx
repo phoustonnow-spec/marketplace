@@ -42,14 +42,17 @@ export default async function Dashboard({
   const { data: masters = [] } = await supabase
     .from("masters")
     .select("*")
+    .eq("owner", user.id)
     .order("created_at");
   const { data: channels = [] } = await supabase
     .from("channels")
     .select("*")
+    .eq("owner", user.id)
     .order("created_at");
   const { data: products = [] } = await supabase
     .from("products")
     .select("*")
+    .eq("owner", user.id)
     .order("created_at", { ascending: false });
 
   const ms = (masters || []) as Master[];
