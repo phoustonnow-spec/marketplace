@@ -50,7 +50,7 @@ export default function OpengraphImage() {
             marginTop: 12,
           }}
         >
-          Your storefront, your subdomain.
+          Your shop. Your brand. Your own address.
         </div>
         <div
           style={{

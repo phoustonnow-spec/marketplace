@@ -10,7 +10,7 @@ export const metadata = {
 export default function InvitePage() {
   const domain = ROOT_DOMAIN.split(":")[0];
   const url = `https://${domain}`;
-  const message = `Check out market.place — set up your own online shop in minutes: list your items with photos, get your own web address, and take payments.\n\nStart here: ${url}`;
+  const message = `Start your own online shop in minutes — your address, your items, your payments.\n\n${url}`;
 
   return (
     <main className="mx-auto max-w-xl px-6 py-12">
