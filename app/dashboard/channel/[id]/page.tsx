@@ -105,7 +105,7 @@ export default async function ChannelPage({
             </form>
             <form action={deleteChannel} className="mt-1">
               <input type="hidden" name="id" value={channel.id} />
-              <button className="text-red-600">Delete this brand</button>
+              <button className="text-red-600">Delete this designer</button>
             </form>
           </details>
         </div>

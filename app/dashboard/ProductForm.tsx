@@ -141,7 +141,7 @@ export default function ProductForm({
         placeholder="e.g. Neverfull MM Monogram"
       />
 
-      <label className="label">Category → channel</label>
+      <label className="label">Category → designer</label>
       <select
         name="channel_id"
         defaultValue={product?.channel_id || defaultChannelId || ""}

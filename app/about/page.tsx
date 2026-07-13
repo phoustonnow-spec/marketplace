@@ -12,7 +12,7 @@ export default function AboutPage() {
 
   const features = [
     ["🏪", "Your own storefront", `A personal web address like you.${root}, with a beautiful shop page.`],
-    ["📸", "List with photos", "Add products with photos, organized by category and brand."],
+    ["📸", "List with photos", "Add products with photos, organized by category and designer."],
     ["🔖", "Sell & share", "Mark items sold, build a printable sales sheet, and share any item in one tap."],
     ["💸", "Get paid your way", "Customers pay you directly by Venmo, PayPal, or Zelle."],
     ["📱", "Installs like an app", "Add your store to any phone's home screen."],
@@ -36,7 +36,7 @@ export default function AboutPage() {
         <b>market.place</b> is the easiest way to open your own online storefront.
         In minutes you get your own web address, a beautiful shop page, and full
         control of your inventory — add products with photos, sort them into
-        categories and brands, mark items sold, and build shareable sales sheets.
+        categories and designers, mark items sold, and build shareable sales sheets.
         Customers browse your store and pay you directly by Venmo, PayPal, or
         Zelle. Share any item with one tap, send buyers a link that previews your
         shop, and even add your store to your phone’s home screen like an app.

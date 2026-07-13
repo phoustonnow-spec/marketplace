@@ -238,7 +238,7 @@ export default async function Dashboard({
                             <form action={deleteChannel} className="mt-1">
                               <input type="hidden" name="id" value={c.id} />
                               <button className="text-xs text-red-600">
-                                Delete brand
+                                Delete designer
                               </button>
                             </form>
                           </div>
@@ -260,7 +260,11 @@ export default async function Dashboard({
 
           {ms.length > 0 && (
             <form action={addChannel} className="mt-2 space-y-2">
-              <input name="name" className="input" placeholder="New channel (brand)" />
+              <input
+                name="name"
+                className="input"
+                placeholder="New designer (e.g. Gucci)"
+              />
               <select name="master_id" className="input">
                 {ms.map((m) => (
                   <option key={m.id} value={m.id}>
@@ -268,7 +272,7 @@ export default async function Dashboard({
                   </option>
                 ))}
               </select>
-              <button className="btn-ghost w-full">Add channel</button>
+              <button className="btn-ghost w-full">Add designer</button>
             </form>
           )}
         </aside>

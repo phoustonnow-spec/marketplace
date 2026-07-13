@@ -21,10 +21,10 @@ export default function MoveSelect({
         name="channel_id"
         defaultValue={currentChannelId || ""}
         className="input !py-1 !text-xs"
-        aria-label="Move to brand"
+        aria-label="Move to designer"
         onChange={(e) => e.currentTarget.form?.requestSubmit()}
       >
-        <option value="">— no brand —</option>
+        <option value="">— no designer —</option>
         {channels.map((c) => (
           <option key={c.id} value={c.id}>
             Move to: {c.masterName} · {c.name}

@@ -58,7 +58,7 @@ export default async function Home() {
       <section className="grid gap-4 pb-24 sm:grid-cols-3">
         {[
           ["Your own subdomain", "Every seller gets you.market.place — instantly."],
-          ["Unlimited catalog", "Categories, channels, photos, prices, descriptions."],
+          ["Unlimited catalog", "Categories, designers, photos, prices, descriptions."],
           ["Get paid your way", "Card checkout plus Venmo, PayPal, and Zelle."],
         ].map(([h, b]) => (
           <div key={h} className="card p-5">
