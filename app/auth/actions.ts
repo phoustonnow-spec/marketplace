@@ -47,7 +47,10 @@ export async function signup(formData: FormData) {
     options: { data: { display_name: name, subdomain } },
   });
   if (error) {
-    redirect("/signup?error=" + encodeURIComponent(error.message));
+    const friendly = /already|exists|registered/i.test(error.message)
+      ? "That email already has an account. Sign in instead, or use a different email."
+      : error.message;
+    redirect("/signup?error=" + encodeURIComponent(friendly));
   }
 
   // Notify the owner that a new seller registered (no-op until email is set up).

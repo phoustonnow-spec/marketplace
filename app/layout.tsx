@@ -51,6 +51,9 @@ export default function RootLayout({
             <a href="/about" className="hover:text-golddeep">
               About
             </a>
+            <a href="/install" className="hover:text-golddeep">
+              Get the app
+            </a>
             <a href="/invite" className="hover:text-golddeep">
               Share
             </a>
