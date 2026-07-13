@@ -8,7 +8,12 @@ import type { Product, Profile } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
-export default async function SalesSheet() {
+export default async function SalesSheet({
+  searchParams,
+}: {
+  searchParams: { preview?: string };
+}) {
+  const previewMode = searchParams?.preview === "1";
   const supabase = createClient();
   const {
     data: { user },
@@ -39,13 +44,39 @@ export default async function SalesSheet() {
   return (
     <main className="mx-auto max-w-4xl px-6 pb-24">
       <header className="no-print flex flex-wrap items-center justify-between gap-3 border-b border-line py-5">
-        <Link href="/dashboard" className="text-sm text-[#8a8071] hover:text-golddeep">
-          ← Back to dashboard
-        </Link>
-        <PrintButton />
+        {previewMode ? (
+          <Link
+            href="/dashboard/sales-sheet"
+            className="text-sm text-[#8a8071] hover:text-golddeep"
+          >
+            ← Exit preview
+          </Link>
+        ) : (
+          <Link
+            href="/dashboard"
+            className="text-sm text-[#8a8071] hover:text-golddeep"
+          >
+            ← Back to dashboard
+          </Link>
+        )}
+        <div className="flex items-center gap-2">
+          {!previewMode && onSheet.length > 0 && (
+            <Link href="/dashboard/sales-sheet?preview=1" className="btn-ghost">
+              Preview
+            </Link>
+          )}
+          <PrintButton />
+        </div>
       </header>
 
-      {/* Item picker — build the sheet from here. Hidden when printing. */}
+      {previewMode && (
+        <p className="no-print mt-3 rounded-lg border border-gold bg-[#faf3e3] px-3 py-2 text-center text-sm text-golddeep">
+          Preview — this is exactly how your printed / PDF sheet will look.
+        </p>
+      )}
+
+      {/* Item picker — build the sheet from here. Hidden when printing/previewing. */}
+      {!previewMode && (
       <details className="no-print mt-5 rounded-xl border border-line bg-cream p-4" open={onSheet.length === 0}>
         <summary className="cursor-pointer font-serif text-lg font-semibold text-ink">
           ＋ Add items to this sheet
@@ -82,6 +113,7 @@ export default async function SalesSheet() {
           </div>
         )}
       </details>
+      )}
 
       <div className="py-6 text-center">
         <h1 className="font-serif text-4xl font-bold text-ink">{storeName}</h1>
@@ -153,11 +185,15 @@ export default async function SalesSheet() {
                     Purchase this item →
                   </a>
                 )}
-                <form action={toggleSheet} className="no-print mt-3">
-                  <input type="hidden" name="id" value={p.id} />
-                  <input type="hidden" name="on_sheet" value={String(p.on_sheet)} />
-                  <button className="text-xs text-red-600">Remove from sheet</button>
-                </form>
+                {!previewMode && (
+                  <form action={toggleSheet} className="no-print mt-3">
+                    <input type="hidden" name="id" value={p.id} />
+                    <input type="hidden" name="on_sheet" value={String(p.on_sheet)} />
+                    <button className="text-xs text-red-600">
+                      Remove from sheet
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
           ))}
