@@ -18,6 +18,7 @@ import {
 } from "./actions";
 import ProductForm from "./ProductForm";
 import ShareButton from "./ShareButton";
+import MoveSelect from "./MoveSelect";
 import type { Master, Channel, Product, Profile } from "@/lib/types";
 
 export default async function Dashboard({
@@ -126,9 +127,14 @@ export default async function Dashboard({
             <h2 className="text-xs uppercase tracking-wider text-[#8a8071]">
               Master categories
             </h2>
+          </div>
+          <div className="mb-3 flex gap-4 text-xs">
+            <Link href="/dashboard/sold" className="text-golddeep hover:underline">
+              Sold →
+            </Link>
             <Link
               href="/dashboard/sales-sheet"
-              className="text-xs text-golddeep hover:underline"
+              className="text-golddeep hover:underline"
             >
               Sales sheet →
             </Link>
@@ -288,6 +294,13 @@ export default async function Dashboard({
                       <input type="hidden" name="id" value={p.id} />
                       <button className="btn-ghost !px-2 !py-1 text-xs">Delete</button>
                     </form>
+                  </div>
+                  <div className="mt-2">
+                    <MoveSelect
+                      productId={p.id}
+                      currentChannelId={p.channel_id}
+                      channels={channelOpts}
+                    />
                   </div>
                 </div>
               </div>

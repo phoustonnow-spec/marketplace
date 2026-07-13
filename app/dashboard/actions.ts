@@ -114,6 +114,20 @@ export async function deleteProduct(formData: FormData) {
   revalidatePath("/dashboard", "layout");
 }
 
+// Move an item to a different channel (brand).
+export async function moveProduct(formData: FormData) {
+  const { supabase, user } = await requireUser();
+  const id = String(formData.get("id") || "");
+  const channel_id = String(formData.get("channel_id") || "") || null;
+  if (!id) return;
+  await supabase
+    .from("products")
+    .update({ channel_id })
+    .eq("id", id)
+    .eq("owner", user.id);
+  revalidatePath("/dashboard", "layout");
+}
+
 // Add/remove an item from the sales sheet.
 export async function toggleSheet(formData: FormData) {
   const { supabase, user } = await requireUser();
