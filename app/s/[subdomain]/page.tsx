@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { storeIsLive } from "@/lib/trial";
 import { themeAccent } from "@/lib/themes";
-import { sendStoreMessage } from "./actions";
+import StoreContact from "./StoreContact";
 import type { Product, Profile, Master, Channel } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -274,54 +274,10 @@ export default async function Storefront({
         itemGrid
       )}
 
-      {profile.contact_enabled && (
-        <section className="mx-auto mt-10 max-w-md border-t border-line pt-8">
-          <h2
-            className="text-center font-serif text-2xl font-bold"
-            style={{ color: "var(--accent-deep)" }}
-          >
-            Contact {profile.display_name || profile.subdomain}
-          </h2>
-          {searchParams?.contact === "sent" ? (
-            <p className="mt-3 rounded-xl border border-line bg-white p-4 text-center text-sm text-ink">
-              ✓ Thanks! Your message was sent to the seller.
-            </p>
-          ) : (
-            <form action={sendStoreMessage} className="mt-4">
-              <input type="hidden" name="subdomain" value={profile.subdomain} />
-              {searchParams?.contact === "error" && (
-                <p className="mb-2 text-sm text-red-600">
-                  Please write a message and try again.
-                </p>
-              )}
-              <input
-                name="name"
-                className="input mb-2"
-                placeholder="Your name"
-              />
-              <input
-                name="email"
-                type="email"
-                className="input mb-2"
-                placeholder="Your email (so they can reply)"
-              />
-              <textarea
-                name="body"
-                required
-                rows={4}
-                className="input"
-                placeholder="Your message…"
-              />
-              <button
-                className="btn mt-3 w-full py-3"
-                style={{ background: "var(--accent)" }}
-              >
-                Send message
-              </button>
-            </form>
-          )}
-        </section>
-      )}
+      <StoreContact
+        profile={profile}
+        sent={searchParams?.contact === "sent"}
+      />
     </main>
     </div>
   );
