@@ -7,10 +7,15 @@ export const TRIAL_DAYS = Number(process.env.TRIAL_DAYS || "1");
 // their free trial. After the trial ends without an active membership, the
 // public storefront is paused until they subscribe (or use an access code).
 export function storeIsLive(
-  profile: Pick<Profile, "subscription_status" | "created_at"> | null | undefined
+  profile:
+    | Pick<Profile, "subscription_status" | "created_at" | "plan">
+    | null
+    | undefined
 ): boolean {
   if (!profile) return false;
   if (profile.subscription_status === "active") return true;
+  // Invite (promo code) and gifted memberships never expire.
+  if (profile.plan === "invite" || profile.plan === "gift") return true;
   if (!profile.created_at) return true; // unknown signup date — don't block
   const created = new Date(profile.created_at).getTime();
   if (Number.isNaN(created)) return true;
