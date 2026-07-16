@@ -80,13 +80,25 @@ export default async function ProductPage({
       </div>
 
       <div className="grid gap-10 md:grid-cols-2">
-        <div className="grid gap-3">
-          {(product.photos || []).map((src, i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={i} src={src} alt="" className="w-full rounded-xl border border-line object-cover" />
-          ))}
-          {(!product.photos || product.photos.length === 0) && (
-            <div className="aspect-square rounded-xl bg-sand" />
+        <div>
+          <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto rounded-xl">
+            {(product.photos || []).map((src, i) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={i}
+                src={src}
+                alt={`${product.name} photo ${i + 1}`}
+                className="aspect-square w-full flex-none snap-center rounded-xl border border-line object-cover"
+              />
+            ))}
+            {(!product.photos || product.photos.length === 0) && (
+              <div className="aspect-square w-full flex-none rounded-xl bg-sand" />
+            )}
+          </div>
+          {product.photos && product.photos.length > 1 && (
+            <p className="mt-2 text-center text-xs text-[#8a8071]">
+              ← swipe to see all {product.photos.length} photos →
+            </p>
           )}
         </div>
 
