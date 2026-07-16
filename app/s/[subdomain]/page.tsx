@@ -60,6 +60,41 @@ export default async function Storefront({
   const ps = (products || []) as Product[];
   const fmt = (c: number) => "$" + (c / 100).toLocaleString("en-US");
   const accent = themeAccent(profile.theme);
+  const layout = profile.home_layout || "items";
+
+  const itemGrid = (
+    <div className="grid gap-5 py-8 sm:grid-cols-2 lg:grid-cols-4">
+      {ps.map((p) => (
+        <Link
+          key={p.id}
+          href={`/p/${p.id}`}
+          className="card overflow-hidden transition hover:-translate-y-1"
+        >
+          <div className="relative aspect-square bg-sand">
+            {p.photos?.[0] && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={p.photos[0]}
+                alt={p.name}
+                className={"h-full w-full object-cover " + (p.sold ? "opacity-50" : "")}
+              />
+            )}
+            {p.sold && (
+              <span className="absolute right-2 top-2 rounded-full bg-red-600 px-2 py-1 text-xs font-semibold text-white">
+                SOLD
+              </span>
+            )}
+          </div>
+          <div className="p-3">
+            <div className="font-serif text-lg font-semibold">{p.name}</div>
+            <div style={{ color: "var(--accent-deep)" }}>
+              {fmt(p.price_cents)}
+            </div>
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
 
   return (
     <div
@@ -142,7 +177,11 @@ export default async function Storefront({
         </div>
       )}
 
-      {profile.home_layout === "categories" && ms.length > 0 ? (
+      {ps.length === 0 ? (
+        <p className="py-20 text-center text-[#8a8071]">
+          This store hasn’t listed anything yet.
+        </p>
+      ) : layout === "categories" && ms.length > 0 ? (
         <div className="grid gap-5 py-8 sm:grid-cols-2 lg:grid-cols-3">
           {ms.map((m) => {
             const catIds = cs
@@ -180,42 +219,56 @@ export default async function Storefront({
             );
           })}
         </div>
-      ) : ps.length === 0 ? (
-        <p className="py-20 text-center text-[#8a8071]">
-          This store hasn’t listed anything yet.
-        </p>
-      ) : (
-        <div className="grid gap-5 py-8 sm:grid-cols-2 lg:grid-cols-4">
-          {ps.map((p) => (
-            <Link
-              key={p.id}
-              href={`/p/${p.id}`}
-              className="card overflow-hidden transition hover:-translate-y-1"
-            >
-              <div className="relative aspect-square bg-sand">
-                {p.photos?.[0] && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={p.photos[0]}
-                    alt={p.name}
-                    className={"h-full w-full object-cover " + (p.sold ? "opacity-50" : "")}
-                  />
-                )}
-                {p.sold && (
-                  <span className="absolute right-2 top-2 rounded-full bg-red-600 px-2 py-1 text-xs font-semibold text-white">
-                    SOLD
-                  </span>
-                )}
-              </div>
-              <div className="p-3">
-                <div className="font-serif text-lg font-semibold">{p.name}</div>
-                <div style={{ color: "var(--accent-deep)" }}>
-                  {fmt(p.price_cents)}
-                </div>
-              </div>
-            </Link>
-          ))}
+      ) : layout === "collage" ? (
+        <div className="grid grid-cols-3 gap-1 py-8 sm:grid-cols-4 lg:grid-cols-5">
+          {ps
+            .filter((p) => p.photos?.[0])
+            .map((p) => (
+              <Link
+                key={p.id}
+                href={`/p/${p.id}`}
+                className="group relative aspect-square overflow-hidden bg-sand"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={p.photos[0]}
+                  alt={p.name}
+                  className={
+                    "h-full w-full object-cover transition group-hover:scale-105 " +
+                    (p.sold ? "opacity-50" : "")
+                  }
+                />
+              </Link>
+            ))}
         </div>
+      ) : layout === "photo" ? (
+        <div className="py-8">
+          {(profile.avatar_url ||
+            ps.find((p) => p.photos?.[0])?.photos?.[0]) && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={
+                profile.avatar_url || ps.find((p) => p.photos?.[0])!.photos[0]
+              }
+              alt=""
+              className="mx-auto max-h-[60vh] w-full max-w-2xl rounded-2xl object-cover"
+            />
+          )}
+          <div className="mt-6 text-center">
+            <a
+              href="#items"
+              className="btn px-6 py-3 text-base"
+              style={{ background: "var(--accent)" }}
+            >
+              Shop all items ↓
+            </a>
+          </div>
+          <div id="items" className="scroll-mt-4">
+            {itemGrid}
+          </div>
+        </div>
+      ) : (
+        itemGrid
       )}
     </main>
     </div>

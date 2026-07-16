@@ -460,27 +460,28 @@ export default async function Dashboard({
               </div>
 
               <label className="label">Storefront home page shows</label>
-              <div className="flex flex-wrap gap-4 text-sm">
-                <label className="flex cursor-pointer items-center gap-1.5">
-                  <input
-                    type="radio"
-                    name="home_layout"
-                    value="items"
-                    defaultChecked={
-                      (profile?.home_layout || "items") !== "categories"
-                    }
-                  />
-                  All items in a grid
-                </label>
-                <label className="flex cursor-pointer items-center gap-1.5">
-                  <input
-                    type="radio"
-                    name="home_layout"
-                    value="categories"
-                    defaultChecked={profile?.home_layout === "categories"}
-                  />
-                  Categories only (shoppers pick a category)
-                </label>
+              <div className="flex flex-col gap-2 text-sm">
+                {(
+                  [
+                    ["items", "All items in a grid"],
+                    ["categories", "Categories (shoppers pick a category)"],
+                    ["collage", "Photo collage (a mosaic of your photos)"],
+                    ["photo", "Featured photo (a big photo, then your items)"],
+                  ] as const
+                ).map(([val, lbl]) => (
+                  <label
+                    key={val}
+                    className="flex cursor-pointer items-center gap-1.5"
+                  >
+                    <input
+                      type="radio"
+                      name="home_layout"
+                      value={val}
+                      defaultChecked={(profile?.home_layout || "items") === val}
+                    />
+                    {lbl}
+                  </label>
+                ))}
               </div>
 
               <label className="label">Store display name</label>
