@@ -12,6 +12,7 @@ export type Profile = {
   zelle: string | null;
   avatar_url?: string | null;
   theme?: string | null;
+  home_layout?: string | null;
   created_at?: string | null;
 };
 

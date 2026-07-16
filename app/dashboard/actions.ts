@@ -202,6 +202,7 @@ export async function saveSettings(formData: FormData) {
     .update({
       avatar_url: String(formData.get("avatar_url") || "").trim() || null,
       theme: String(formData.get("theme") || "gold").trim(),
+      home_layout: String(formData.get("home_layout") || "items").trim(),
     })
     .eq("id", user.id);
   revalidatePath("/dashboard", "layout");

@@ -142,7 +142,45 @@ export default async function Storefront({
         </div>
       )}
 
-      {ps.length === 0 ? (
+      {profile.home_layout === "categories" && ms.length > 0 ? (
+        <div className="grid gap-5 py-8 sm:grid-cols-2 lg:grid-cols-3">
+          {ms.map((m) => {
+            const catIds = cs
+              .filter((c) => c.master_id === m.id)
+              .map((c) => c.id);
+            const catProducts = ps.filter(
+              (p) => p.channel_id && catIds.includes(p.channel_id)
+            );
+            const preview = catProducts.find((p) => p.photos?.[0])?.photos?.[0];
+            return (
+              <Link
+                key={m.id}
+                href={`/c/${m.id}`}
+                className="card overflow-hidden transition hover:-translate-y-1"
+              >
+                <div className="aspect-[4/3] bg-sand">
+                  {preview && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={preview}
+                      alt=""
+                      className="h-full w-full object-cover"
+                    />
+                  )}
+                </div>
+                <div className="p-4 text-center">
+                  <h3 className="font-serif text-xl font-semibold text-ink">
+                    {m.name}
+                  </h3>
+                  <p className="text-sm text-[#8a8071]">
+                    {catProducts.filter((p) => !p.sold).length} items
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      ) : ps.length === 0 ? (
         <p className="py-20 text-center text-[#8a8071]">
           This store hasn’t listed anything yet.
         </p>
