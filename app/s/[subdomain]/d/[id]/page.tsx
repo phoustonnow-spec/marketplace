@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { storeIsLive } from "@/lib/trial";
 import { themeAccent } from "@/lib/themes";
-import StoreContact from "../../StoreContact";
+import ContactSellerButton from "../../ContactSellerButton";
 import type { Product, Profile, Channel } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -121,7 +121,13 @@ export default async function DesignerPage({
         </div>
       )}
 
-      <StoreContact profile={profile} />
+      <div className="mx-auto max-w-md pt-8 text-center">
+        <ContactSellerButton
+          subdomain={profile.subdomain}
+          sellerName={profile.display_name || profile.subdomain}
+          enabled={profile.contact_enabled}
+        />
+      </div>
     </main>
     </div>
   );

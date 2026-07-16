@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { storeIsLive } from "@/lib/trial";
 import { themeAccent } from "@/lib/themes";
-import StoreContact from "./StoreContact";
+import ContactSellerButton from "./ContactSellerButton";
 import type { Product, Profile, Master, Channel } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -145,6 +145,12 @@ export default async function Storefront({
         )}
       </header>
 
+      {searchParams?.contact === "sent" && (
+        <p className="mt-4 rounded-xl border border-gold bg-white p-3 text-center text-sm text-golddeep">
+          ✓ Thanks! Your message was sent to the seller.
+        </p>
+      )}
+
       {ms.length > 0 && (
         <div className="flex flex-wrap items-center gap-2 border-b border-line py-4">
           <span className="mr-1 text-xs uppercase tracking-wider text-[#8a8071]">
@@ -274,10 +280,13 @@ export default async function Storefront({
         itemGrid
       )}
 
-      <StoreContact
-        profile={profile}
-        sent={searchParams?.contact === "sent"}
-      />
+      <div className="mx-auto max-w-md pt-8 text-center">
+        <ContactSellerButton
+          subdomain={profile.subdomain}
+          sellerName={profile.display_name || profile.subdomain}
+          enabled={profile.contact_enabled}
+        />
+      </div>
     </main>
     </div>
   );
