@@ -48,7 +48,7 @@ export default async function Home() {
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link href="/signup" className="btn px-6 py-3 text-base">
-            Start your store — $4/mo
+            Start your store — $1.99/mo
           </Link>
           <Link href="/login" className="btn-ghost px-6 py-3 text-base">
             Sign in

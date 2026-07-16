@@ -24,7 +24,7 @@ export default function GiftPage({
 
       <h1 className="font-serif text-3xl font-bold text-ink">Gift a membership</h1>
       <p className="mt-2 text-[#6b6152]">
-        Give a seller the <b>$4/month</b> membership so their store stays live.
+        Give a seller the <b>$1.99/month</b> membership so their store stays live.
         Enter their store address and we’ll activate it after checkout.
       </p>
 
@@ -65,7 +65,7 @@ export default function GiftPage({
         <p className="mt-1 text-xs text-[#8a8071]">
           That’s the part before <b>.{root}</b> in their store link.
         </p>
-        <button className="btn mt-5 w-full py-3">Gift membership — $4</button>
+        <button className="btn mt-5 w-full py-3">Gift membership — $1.99</button>
       </form>
 
       <p className="mt-8 text-sm text-[#8a8071]">

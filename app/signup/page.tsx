@@ -60,7 +60,7 @@ export default async function SignupPage({
           )}
 
           <p className="mt-4 text-center text-sm text-[#8a8071]">
-            Membership <b className="text-golddeep">$4.00 / month</b> · cancel anytime
+            Membership <b className="text-golddeep">$1.99 / month</b> · cancel anytime
           </p>
           <button className="btn mt-3 w-full py-3">Create my store →</button>
         </form>

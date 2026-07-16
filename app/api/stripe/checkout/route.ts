@@ -3,7 +3,7 @@ import { stripe } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
 import { ROOT_DOMAIN } from "@/lib/subdomain";
 
-// Seller subscription checkout ($4/mo). Triggered by a POST form from the dashboard.
+// Seller subscription checkout ($1.99/mo). Triggered by a POST form from the dashboard.
 export async function POST() {
   const supabase = createClient();
   const {
@@ -34,7 +34,17 @@ export async function POST() {
   const session = await stripe.checkout.sessions.create({
     mode: "subscription",
     customer,
-    line_items: [{ price: process.env.STRIPE_PRICE_ID!, quantity: 1 }],
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          product_data: { name: "Seller membership" },
+          unit_amount: 199,
+          recurring: { interval: "month" },
+        },
+        quantity: 1,
+      },
+    ],
     success_url: `${origin}/dashboard?sub=success`,
     cancel_url: `${origin}/dashboard?sub=cancel`,
     metadata: { uid: user.id },

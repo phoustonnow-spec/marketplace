@@ -57,7 +57,7 @@ export default function AboutPage() {
 
       <div className="mt-10 flex flex-wrap gap-3">
         <Link href="/signup" className="btn px-6 py-3 text-base">
-          Start your store — $4/mo
+          Start your store — $1.99/mo
         </Link>
         <Link href="/invite" className="btn-ghost px-6 py-3 text-base">
           Share market.place

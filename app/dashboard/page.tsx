@@ -148,13 +148,13 @@ export default async function Dashboard({
                     about {trialHoursLeft(profile)} hour
                     {trialHoursLeft(profile) === 1 ? "" : "s"} left
                   </b>
-                  . Activate your <b>$4/month</b> membership to keep your store
+                  . Activate your <b>$1.99/month</b> membership to keep your store
                   live.
                 </>
               ) : (
                 <>
                   ⚠️ Your free trial has ended and your store is{" "}
-                  <b>paused for shoppers</b>. Activate your <b>$4/month</b>
+                  <b>paused for shoppers</b>. Activate your <b>$1.99/month</b>
                   membership (or enter an access code) to bring it back.
                 </>
               )}
@@ -174,7 +174,7 @@ export default async function Dashboard({
                 Have an invite or test code? Enter it to activate free — no payment.
               </span>
               <form action="/api/stripe/checkout" method="post">
-                <button className="btn w-full">Subscribe — $4/month</button>
+                <button className="btn w-full">Subscribe — $1.99/month</button>
               </form>
             </div>
           </div>

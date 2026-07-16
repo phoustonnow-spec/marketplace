@@ -3,7 +3,7 @@ import { stripe } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
 import { ROOT_DOMAIN } from "@/lib/subdomain";
 
-// One-time $4 gift: a buyer pays to activate someone else's membership.
+// One-time $1.99 gift: a buyer pays to activate someone else's membership.
 export async function POST(req: Request) {
   const form = await req.formData();
   const recipient = String(form.get("recipient") || "")
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
         price_data: {
           currency: "usd",
           product_data: { name: `Gifted membership for ${store.subdomain}` },
-          unit_amount: 400,
+          unit_amount: 199,
         },
         quantity: 1,
       },
