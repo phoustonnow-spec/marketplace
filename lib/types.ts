@@ -13,7 +13,17 @@ export type Profile = {
   avatar_url?: string | null;
   theme?: string | null;
   home_layout?: string | null;
+  contact_enabled?: boolean | null;
   created_at?: string | null;
+};
+
+export type StoreMessage = {
+  id: string;
+  seller: string;
+  buyer_name: string | null;
+  buyer_email: string | null;
+  body: string;
+  created_at: string;
 };
 
 export type Master = { id: string; owner: string; name: string; created_at: string };

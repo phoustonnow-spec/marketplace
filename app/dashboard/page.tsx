@@ -92,6 +92,9 @@ export default async function Dashboard({
           market.place
         </Link>
         <div className="flex items-center gap-3 text-sm">
+          <Link href="/dashboard/messages" className="btn-ghost">
+            ✉ Messages
+          </Link>
           <a href="#settings" className="btn-ghost">
             ⚙ Settings
           </a>
@@ -483,6 +486,17 @@ export default async function Dashboard({
                   </label>
                 ))}
               </div>
+
+              <label className="label">Contact form</label>
+              <label className="flex cursor-pointer items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  name="contact_enabled"
+                  defaultChecked={!!profile?.contact_enabled}
+                />
+                Let buyers send me a message from my store (shows a “Contact”
+                form; messages appear in your Messages inbox)
+              </label>
 
               <label className="label">Store display name</label>
               <input

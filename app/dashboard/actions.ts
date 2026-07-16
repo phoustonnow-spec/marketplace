@@ -203,6 +203,7 @@ export async function saveSettings(formData: FormData) {
       avatar_url: String(formData.get("avatar_url") || "").trim() || null,
       theme: String(formData.get("theme") || "gold").trim(),
       home_layout: String(formData.get("home_layout") || "items").trim(),
+      contact_enabled: formData.get("contact_enabled") === "on",
     })
     .eq("id", user.id);
   revalidatePath("/dashboard", "layout");
