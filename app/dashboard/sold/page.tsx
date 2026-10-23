@@ -62,18 +62,18 @@ export default async function SoldPage() {
     <main className="mx-auto max-w-6xl px-6 pb-24">
       <header className="flex flex-wrap items-center justify-between gap-3 border-b border-line py-5">
         <div>
-          <Link href="/dashboard" className="text-sm text-[#8a8071] hover:text-golddeep">
+          <Link href="/dashboard" className="text-sm text-[#9b7886] hover:text-golddeep">
             ← Back to dashboard
           </Link>
           <h1 className="mt-1 font-serif text-3xl font-bold text-ink">Sold</h1>
-          <p className="text-sm text-[#8a8071]">
+          <p className="text-sm text-[#9b7886]">
             {ps.length} sold item{ps.length === 1 ? "" : "s"}
           </p>
         </div>
       </header>
 
       {ps.length === 0 ? (
-        <p className="py-16 text-center text-[#8a8071]">
+        <p className="py-16 text-center text-[#9b7886]">
           Nothing here yet. Items you mark as sold will collect on this page.
         </p>
       ) : (

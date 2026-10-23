@@ -36,7 +36,7 @@ export default function CheckoutForm({
       <div className="card p-8 text-center">
         <div className="text-5xl">✓</div>
         <h2 className="mt-2 font-serif text-2xl font-bold">Order placed</h2>
-        <p className="mt-2 text-[#6b6152]">
+        <p className="mt-2 text-[#7c5c69]">
           Thanks {name || "!"} — your order for <b>{productName}</b> ({fmt}) is
           confirmed. The seller will reach out about shipping.
         </p>
@@ -50,7 +50,7 @@ export default function CheckoutForm({
     return (
       <div className="card p-6">
         <h2 className="font-serif text-2xl font-bold">Payment</h2>
-        <p className="mt-1 text-[#6b6152]">
+        <p className="mt-1 text-[#7c5c69]">
           {productName} · <b className="text-golddeep">{fmt}</b>
         </p>
         <button
@@ -60,26 +60,26 @@ export default function CheckoutForm({
           🔒 Pay securely by card
         </button>
         {(vu || pp || zelle) && (
-          <div className="my-3 text-center text-xs tracking-widest text-[#a89e8b]">
+          <div className="my-3 text-center text-xs tracking-widest text-[#b895a3]">
             — OR PAY THE SELLER DIRECTLY —
           </div>
         )}
         {vu && (
-          <a href={vu} target="_blank" rel="noreferrer" className="mb-2 block w-full rounded-lg bg-[#3d95ce] py-3 text-center font-semibold text-white">
+          <a href={vu} target="_blank" rel="noreferrer" className="mb-2 block w-full rounded-full bg-[#3d95ce] py-3 text-center font-semibold text-white">
             Pay with Venmo
           </a>
         )}
         {pp && (
-          <a href={pp} target="_blank" rel="noreferrer" className="mb-2 block w-full rounded-lg bg-[#003087] py-3 text-center font-semibold text-white">
+          <a href={pp} target="_blank" rel="noreferrer" className="mb-2 block w-full rounded-full bg-[#003087] py-3 text-center font-semibold text-white">
             Pay with PayPal
           </a>
         )}
         {zelle && (
-          <div className="mb-2 block w-full rounded-lg bg-[#6d1ed4] py-3 text-center font-semibold text-white">
+          <div className="mb-2 block w-full rounded-full bg-[#6d1ed4] py-3 text-center font-semibold text-white">
             Zelle: {zelle}
           </div>
         )}
-        <p className="mt-3 text-xs text-[#a89e8b]">
+        <p className="mt-3 text-xs text-[#b895a3]">
           Card payments are processed securely by Stripe. (Wire your Stripe keys
           in .env to enable live card checkout.)
         </p>
@@ -90,7 +90,7 @@ export default function CheckoutForm({
   return (
     <div className="card p-6">
       <h2 className="font-serif text-2xl font-bold">Secure checkout</h2>
-      <p className="mt-1 text-[#6b6152]">
+      <p className="mt-1 text-[#7c5c69]">
         {productName} · <b className="text-golddeep">{fmt}</b>
       </p>
       <form

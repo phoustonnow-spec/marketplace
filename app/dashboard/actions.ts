@@ -201,7 +201,7 @@ export async function saveSettings(formData: FormData) {
     .from("profiles")
     .update({
       avatar_url: String(formData.get("avatar_url") || "").trim() || null,
-      theme: String(formData.get("theme") || "gold").trim(),
+      theme: String(formData.get("theme") || "blush").trim(),
       home_layout: String(formData.get("home_layout") || "items").trim(),
       contact_enabled: formData.get("contact_enabled") === "on",
     })

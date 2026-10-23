@@ -15,7 +15,7 @@ export default function InstallPage() {
       </nav>
 
       <h1 className="font-serif text-3xl font-bold text-ink">Get the app</h1>
-      <p className="mt-2 text-[#6b6152]">
+      <p className="mt-2 text-[#7c5c69]">
         market.place installs straight from your browser — no App Store needed.
         It gets its own icon and opens full-screen like a normal app.
       </p>
@@ -23,7 +23,7 @@ export default function InstallPage() {
       <div className="mt-6 space-y-4">
         <div className="card p-5">
           <h2 className="font-serif text-xl font-semibold text-ink"> iPhone / iPad</h2>
-          <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[#4a4335]">
+          <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[#7c5c69]">
             <li>
               Open <b>mymarketplace.studio</b> in <b>Safari</b> (this only works in
               Safari).
@@ -43,7 +43,7 @@ export default function InstallPage() {
 
         <div className="card p-5">
           <h2 className="font-serif text-xl font-semibold text-ink"> Android</h2>
-          <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[#4a4335]">
+          <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[#7c5c69]">
             <li>
               Open <b>mymarketplace.studio</b> in <b>Chrome</b>.
             </li>
@@ -58,7 +58,7 @@ export default function InstallPage() {
         </div>
       </div>
 
-      <p className="mt-8 text-sm text-[#8a8071]">
+      <p className="mt-8 text-sm text-[#9b7886]">
         On a computer, look for an <b>install icon</b> in the browser’s address bar
         (Chrome/Edge) to install it there too.
       </p>

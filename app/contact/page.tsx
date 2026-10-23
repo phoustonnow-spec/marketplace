@@ -23,13 +23,13 @@ export default function ContactPage({
       </nav>
 
       <h1 className="font-serif text-3xl font-bold text-ink">Contact us</h1>
-      <p className="mt-2 text-[#6b6152]">
+      <p className="mt-2 text-[#7c5c69]">
         Have a question, an issue, or a suggestion? Send us a note and we’ll get
         back to you.
       </p>
 
       {state === "sent" && (
-        <div className="mt-6 rounded-xl border border-gold bg-[#faf3e3] p-4 text-sm text-golddeep">
+        <div className="mt-6 rounded-xl border border-gold bg-[#fff0f5] p-4 text-sm text-golddeep">
           ✓ Thanks — your message was sent. We’ll be in touch soon.
         </div>
       )}
@@ -75,7 +75,7 @@ export default function ContactPage({
         <button className="btn">Send message</button>
       </form>
 
-      <p className="mt-8 text-sm text-[#8a8071]">
+      <p className="mt-8 text-sm text-[#9b7886]">
         Prefer email? Reach us any time at{" "}
         <a className="underline" href={`mailto:${OWNER_EMAIL}`}>
           {OWNER_EMAIL}

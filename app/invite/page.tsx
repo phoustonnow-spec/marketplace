@@ -21,7 +21,7 @@ export default function InvitePage() {
       </nav>
 
       <h1 className="font-serif text-3xl font-bold text-ink">Share market.place</h1>
-      <p className="mt-2 text-[#6b6152]">
+      <p className="mt-2 text-[#7c5c69]">
         Send this to anyone who’d like their own online shop. Tap a button below —
         the link shows a preview card automatically when it’s pasted into an email
         or text.
@@ -38,7 +38,7 @@ export default function InvitePage() {
       </div>
 
       <div className="mt-6 rounded-xl border border-line bg-cream p-4">
-        <p className="text-xs uppercase tracking-wider text-[#8a8071]">
+        <p className="text-xs uppercase tracking-wider text-[#9b7886]">
           The message
         </p>
         <p className="mt-1 whitespace-pre-wrap text-sm text-ink">{message}</p>
@@ -46,7 +46,7 @@ export default function InvitePage() {
 
       <InviteActions message={message} url={url} />
 
-      <p className="mt-8 text-sm text-[#8a8071]">
+      <p className="mt-8 text-sm text-[#9b7886]">
         Tip: “Email it” opens your email app with the message ready to send. To
         include the picture above, save it first (right-click → Save image, or
         press and hold on a phone) and attach it.

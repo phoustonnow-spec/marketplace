@@ -16,9 +16,9 @@ export default function TermsPage() {
       </nav>
 
       <h1 className="font-serif text-3xl font-bold text-ink">Terms of Service</h1>
-      <p className="mt-2 text-sm text-[#8a8071]">Last updated: July 12, 2026</p>
+      <p className="mt-2 text-sm text-[#9b7886]">Last updated: July 12, 2026</p>
 
-      <div className="mt-6 space-y-5 text-[#4a4335] leading-relaxed">
+      <div className="mt-6 space-y-5 text-[#7c5c69] leading-relaxed">
         <section>
           <h2 className="font-serif text-xl font-semibold text-ink">
             1. Acceptance of these terms

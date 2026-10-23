@@ -24,18 +24,18 @@ export default async function MessagesPage() {
       <header className="border-b border-line py-5">
         <Link
           href="/dashboard"
-          className="text-sm text-[#8a8071] hover:text-golddeep"
+          className="text-sm text-[#9b7886] hover:text-golddeep"
         >
           ← Back to dashboard
         </Link>
         <h1 className="mt-1 font-serif text-3xl font-bold text-ink">Messages</h1>
-        <p className="text-sm text-[#8a8071]">
+        <p className="text-sm text-[#9b7886]">
           {ms.length} message{ms.length === 1 ? "" : "s"} from buyers
         </p>
       </header>
 
       {ms.length === 0 ? (
-        <p className="py-16 text-center text-[#8a8071]">
+        <p className="py-16 text-center text-[#9b7886]">
           No messages yet. When a buyer contacts you from your store, it shows
           here.
         </p>
@@ -47,7 +47,7 @@ export default async function MessagesPage() {
                 <span className="font-semibold text-ink">
                   {m.buyer_name || "A buyer"}
                 </span>
-                <span className="text-xs text-[#8a8071]">
+                <span className="text-xs text-[#9b7886]">
                   {new Date(m.created_at).toLocaleString()}
                 </span>
               </div>
@@ -59,7 +59,7 @@ export default async function MessagesPage() {
                   {m.buyer_email}
                 </a>
               )}
-              <p className="mt-2 whitespace-pre-wrap text-sm text-[#4a4335]">
+              <p className="mt-2 whitespace-pre-wrap text-sm text-[#7c5c69]">
                 {m.body}
               </p>
               {m.buyer_email && (

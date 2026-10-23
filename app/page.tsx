@@ -38,7 +38,7 @@ export default async function Home() {
         <h1 className="mx-auto mt-4 max-w-3xl font-serif text-5xl font-bold leading-tight text-ink">
           Sell anything from your own corner of the web.
         </h1>
-        <p className="mx-auto mt-5 max-w-xl text-lg text-[#6b6152]">
+        <p className="mx-auto mt-5 max-w-xl text-lg text-[#7c5c69]">
           Create an account, add your products with photos, and get your own
           address like{" "}
           <span className="font-semibold text-golddeep">
@@ -65,7 +65,7 @@ export default async function Home() {
         ].map(([h, b]) => (
           <div key={h} className="card p-5">
             <h3 className="font-serif text-xl font-semibold text-ink">{h}</h3>
-            <p className="mt-2 text-sm text-[#6b6152]">{b}</p>
+            <p className="mt-2 text-sm text-[#7c5c69]">{b}</p>
           </div>
         ))}
       </section>

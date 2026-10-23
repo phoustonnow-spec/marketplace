@@ -7,39 +7,46 @@
 }
 
 body {
-  background: radial-gradient(1100px 600px at 80% -10%, #fffdf8 0%, #f4efe6 60%);
+  background: radial-gradient(1200px 620px at 50% -8%, #fff2f6 0%, #ffe7ef 46%, #fbe4ec 100%);
   min-height: 100vh;
-  color: #1f1b16;
+  color: #7c5c69;
 }
+
+h1, h2, h3, h4 { color: #3a2230; }
 
 .wordmark {
   font-family: Georgia, "Cambria", serif;
   font-weight: 700;
   letter-spacing: 0.02em;
-  background: linear-gradient(180deg, #5c421f, #2c1e0e);
+  background: linear-gradient(90deg, #e75a7c, #8d2e63);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .btn {
-  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold transition;
-  background: linear-gradient(180deg, #c9a866, #a5813f);
-  color: #241d10;
+  @apply inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold transition;
+  background: linear-gradient(180deg, #ff7e9d, #e0527d);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(224,82,125,.28);
 }
-.btn:hover { filter: brightness(1.06); }
+.btn:hover { filter: brightness(1.05); }
 .btn-ghost {
-  @apply inline-flex items-center justify-center rounded-lg border px-4 py-2 text-sm font-medium transition;
-  border-color: #d4c8b2; background: transparent; color: #3a3327;
+  @apply inline-flex items-center justify-center rounded-full border px-5 py-2 text-sm font-medium transition;
+  border-color: #f0c6d4; background: transparent; color: #a83e68;
 }
-.btn-ghost:hover { border-color: #a5813f; color: #7a5c2c; }
+.btn-ghost:hover { border-color: #e0527d; background: rgba(255,255,255,.6); color: #c43e6b; }
 .input {
   @apply w-full rounded-lg border px-3 py-2 text-[15px] outline-none;
-  border-color: #e3dbcb; background: #ece5d8;
+  border-color: #f0d3dd; background: #fff; color: #3a2230;
 }
-.input:focus { border-color: #a5813f; box-shadow: 0 0 0 3px rgba(165,129,63,.15); }
-.label { @apply mb-1 mt-3 block text-xs uppercase tracking-wider; color: #8a8071; }
-.card { @apply rounded-xl border bg-white; border-color: #e3dbcb; }
+.input:focus { border-color: #e0527d; box-shadow: 0 0 0 3px rgba(224,82,125,.18); }
+.label { @apply mb-1 mt-3 block text-xs uppercase tracking-wider; color: #9b7886; }
+.card {
+  @apply rounded-2xl border bg-white;
+  border-color: #f6dde5;
+  box-shadow: 0 6px 18px rgba(196,62,107,.08);
+}
 
 @media print {
   .no-print { display: none !important; }

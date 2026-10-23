@@ -13,7 +13,7 @@ function StorePaused({ name }: { name: string }) {
     <main className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-6 text-center">
       <span className="wordmark text-2xl">market.place</span>
       <h1 className="mt-4 font-serif text-3xl font-bold text-ink">{name}</h1>
-      <p className="mt-3 text-[#6b6152]">
+      <p className="mt-3 text-[#7c5c69]">
         This shop is taking a short break and isn’t open right now. Please check
         back soon.
       </p>
@@ -138,7 +138,7 @@ export default async function Storefront({
             href={profile.social_url}
             target="_blank"
             rel="noreferrer"
-            className="rounded-lg border border-white/60 px-3 py-1.5 text-sm text-white hover:bg-white/10"
+            className="rounded-full border border-white/60 px-3 py-1.5 text-sm text-white hover:bg-white/10"
           >
             {profile.social_label || "Visit our page"} ↗
           </a>
@@ -153,7 +153,7 @@ export default async function Storefront({
 
       {ms.length > 0 && (
         <div className="flex flex-wrap items-center gap-2 border-b border-line py-4">
-          <span className="mr-1 text-xs uppercase tracking-wider text-[#8a8071]">
+          <span className="mr-1 text-xs uppercase tracking-wider text-[#9b7886]">
             Shop by category
           </span>
           {ms.map((m) => {
@@ -174,7 +174,7 @@ export default async function Storefront({
                     <Link
                       key={c.id}
                       href={`/d/${c.id}`}
-                      className="block rounded px-2 py-1 text-sm text-[#6b6152] hover:bg-cream"
+                      className="block rounded px-2 py-1 text-sm text-[#7c5c69] hover:bg-cream"
                     >
                       {c.name}
                     </Link>
@@ -187,7 +187,7 @@ export default async function Storefront({
       )}
 
       {ps.length === 0 ? (
-        <p className="py-20 text-center text-[#8a8071]">
+        <p className="py-20 text-center text-[#9b7886]">
           This store hasn’t listed anything yet.
         </p>
       ) : layout === "categories" && ms.length > 0 ? (
@@ -220,7 +220,7 @@ export default async function Storefront({
                   <h3 className="font-serif text-xl font-semibold text-ink">
                     {m.name}
                   </h3>
-                  <p className="text-sm text-[#8a8071]">
+                  <p className="text-sm text-[#9b7886]">
                     {catProducts.filter((p) => !p.sold).length} items
                   </p>
                 </div>

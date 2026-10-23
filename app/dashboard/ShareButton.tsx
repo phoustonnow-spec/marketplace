@@ -97,13 +97,13 @@ export default function ShareButton({
               </h3>
               <button
                 type="button"
-                className="text-[#8a8071]"
+                className="text-[#9b7886]"
                 onClick={() => setOpen(false)}
               >
                 ✕
               </button>
             </div>
-            <p className="mt-1 text-xs text-[#8a8071]">
+            <p className="mt-1 text-xs text-[#9b7886]">
               This is what people will receive.
             </p>
 

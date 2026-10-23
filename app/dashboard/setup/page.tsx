@@ -35,7 +35,7 @@ export default async function SetupPage({
       <div className="card p-8">
         <div className="text-center">
           <span className="wordmark text-3xl">market.place</span>
-          <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#8a8071]">
+          <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#9b7886]">
             Almost there
           </p>
         </div>
@@ -43,7 +43,7 @@ export default async function SetupPage({
         <h1 className="mt-4 font-serif text-2xl font-bold text-ink">
           Choose your store address
         </h1>
-        <p className="mt-1 text-sm text-[#6b6152]">
+        <p className="mt-1 text-sm text-[#7c5c69]">
           This is your shop’s web address. Keep it short — it’s how customers
           find and link to your store.
         </p>
@@ -66,7 +66,7 @@ export default async function SetupPage({
               autoCapitalize="none"
               required
             />
-            <span className="whitespace-nowrap text-sm text-[#8a8071]">
+            <span className="whitespace-nowrap text-sm text-[#9b7886]">
               .{root}
             </span>
           </div>

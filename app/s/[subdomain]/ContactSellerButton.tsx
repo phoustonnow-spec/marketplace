@@ -42,7 +42,7 @@ export default function ContactSellerButton({
               </h3>
               <button
                 type="button"
-                className="text-[#8a8071]"
+                className="text-[#9b7886]"
                 onClick={() => setOpen(false)}
               >
                 ✕

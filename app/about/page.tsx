@@ -32,7 +32,7 @@ export default function AboutPage() {
         Your shop. Your brand. Your own address.
       </h1>
 
-      <p className="mt-5 text-lg leading-relaxed text-[#5b5546]">
+      <p className="mt-5 text-lg leading-relaxed text-[#7c5c69]">
         <b>market.place</b> is the easiest way to open your own online storefront.
         In minutes you get your own web address, a beautiful shop page, and full
         control of your inventory — add products with photos, sort them into
@@ -50,7 +50,7 @@ export default function AboutPage() {
             <h3 className="mt-2 font-serif text-lg font-semibold text-ink">
               {title}
             </h3>
-            <p className="mt-1 text-sm text-[#6b6152]">{body}</p>
+            <p className="mt-1 text-sm text-[#7c5c69]">{body}</p>
           </div>
         ))}
       </div>

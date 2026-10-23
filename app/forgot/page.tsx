@@ -15,20 +15,20 @@ export default function ForgotPage({
       <div className="card p-8">
         <div className="text-center">
           <span className="wordmark text-3xl">market.place</span>
-          <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#8a8071]">
+          <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#9b7886]">
             Reset your password
           </p>
         </div>
 
         {state === "sent" ? (
-          <div className="mt-6 rounded-xl border border-gold bg-[#faf3e3] p-4 text-sm text-golddeep">
+          <div className="mt-6 rounded-xl border border-gold bg-[#fff0f5] p-4 text-sm text-golddeep">
             If an account exists for that email, we’ve sent a reset link. Check
             your inbox (and spam folder), then click the link to set a new
             password.
           </div>
         ) : (
           <form action={requestPasswordReset} className="mt-6">
-            <p className="text-sm text-[#6b6152]">
+            <p className="text-sm text-[#7c5c69]">
               Enter your email and we’ll send you a link to set a new password.
             </p>
             <label className="label">Email</label>
@@ -48,7 +48,7 @@ export default function ForgotPage({
           </form>
         )}
 
-        <p className="mt-5 text-center text-sm text-[#8a8071]">
+        <p className="mt-5 text-center text-sm text-[#9b7886]">
           Remembered it?{" "}
           <Link href="/login" className="text-golddeep underline">
             Back to sign in

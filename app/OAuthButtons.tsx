@@ -13,7 +13,7 @@ export default function OAuthButtons() {
       <form action={signInWithApple}>
         <button className="btn-ghost w-full py-2.5">Continue with Apple</button>
       </form>
-      <div className="my-4 flex items-center gap-3 text-xs text-[#a89e8b]">
+      <div className="my-4 flex items-center gap-3 text-xs text-[#b895a3]">
         <div className="h-px flex-1 bg-line" />
         or with email
         <div className="h-px flex-1 bg-line" />

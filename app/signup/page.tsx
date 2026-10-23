@@ -23,7 +23,7 @@ export default async function SignupPage({
       <div className="card p-8">
         <div className="text-center">
           <span className="wordmark text-3xl">market.place</span>
-          <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#8a8071]">
+          <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#9b7886]">
             Start your store
           </p>
         </div>
@@ -44,7 +44,7 @@ export default async function SignupPage({
               placeholder="janes"
               autoCapitalize="none"
             />
-            <span className="whitespace-nowrap text-sm text-[#8a8071]">
+            <span className="whitespace-nowrap text-sm text-[#9b7886]">
               .{root}
             </span>
           </div>
@@ -59,13 +59,13 @@ export default async function SignupPage({
             <p className="mt-3 text-sm text-red-600">{searchParams.error}</p>
           )}
 
-          <p className="mt-4 text-center text-sm text-[#8a8071]">
+          <p className="mt-4 text-center text-sm text-[#9b7886]">
             Membership <b className="text-golddeep">$1.99 / month</b> · cancel anytime
           </p>
           <button className="btn mt-3 w-full py-3">Create my store →</button>
         </form>
 
-        <p className="mt-5 text-center text-sm text-[#8a8071]">
+        <p className="mt-5 text-center text-sm text-[#9b7886]">
           Already have a store?{" "}
           <Link href="/login" className="text-golddeep underline">
             Sign in

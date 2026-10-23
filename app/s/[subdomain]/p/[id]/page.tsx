@@ -40,7 +40,7 @@ export default async function ProductPage({
         <h1 className="mt-4 font-serif text-3xl font-bold text-ink">
           {profile.display_name || profile.subdomain}
         </h1>
-        <p className="mt-3 text-[#6b6152]">
+        <p className="mt-3 text-[#7c5c69]">
           This shop is taking a short break and isn’t open right now. Please check
           back soon.
         </p>
@@ -96,7 +96,7 @@ export default async function ProductPage({
             )}
           </div>
           {product.photos && product.photos.length > 1 && (
-            <p className="mt-2 text-center text-xs text-[#8a8071]">
+            <p className="mt-2 text-center text-xs text-[#9b7886]">
               ← swipe to see all {product.photos.length} photos →
             </p>
           )}
@@ -112,11 +112,11 @@ export default async function ProductPage({
               SOLD
             </span>
           )}
-          <p className="mt-4 whitespace-pre-wrap text-[#5b5546]">{product.description}</p>
+          <p className="mt-4 whitespace-pre-wrap text-[#7c5c69]">{product.description}</p>
 
           {!product.sold && (
             <div className="mt-6 border-t border-line pt-5">
-              <div className="mb-3 text-xs uppercase tracking-wider text-[#8a8071]">
+              <div className="mb-3 text-xs uppercase tracking-wider text-[#9b7886]">
                 Buy this piece
               </div>
               <a
@@ -127,17 +127,17 @@ export default async function ProductPage({
                 Purchase Now
               </a>
               {venmo && (
-                <a href={venmo} target="_blank" rel="noreferrer" className="mb-2 block w-full rounded-lg bg-[#3d95ce] py-3 text-center font-semibold text-white">
+                <a href={venmo} target="_blank" rel="noreferrer" className="mb-2 block w-full rounded-full bg-[#3d95ce] py-3 text-center font-semibold text-white">
                   Pay with Venmo
                 </a>
               )}
               {pay && (
-                <a href={pay} target="_blank" rel="noreferrer" className="mb-2 block w-full rounded-lg bg-[#003087] py-3 text-center font-semibold text-white">
+                <a href={pay} target="_blank" rel="noreferrer" className="mb-2 block w-full rounded-full bg-[#003087] py-3 text-center font-semibold text-white">
                   Pay with PayPal
                 </a>
               )}
               {profile.zelle && (
-                <div className="mb-2 block w-full rounded-lg bg-[#6d1ed4] py-3 text-center font-semibold text-white">
+                <div className="mb-2 block w-full rounded-full bg-[#6d1ed4] py-3 text-center font-semibold text-white">
                   Zelle: {profile.zelle}
                 </div>
               )}

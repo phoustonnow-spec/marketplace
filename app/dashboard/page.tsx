@@ -111,7 +111,7 @@ export default async function Dashboard({
 
       {profile && (
         <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl border border-line bg-cream p-3 text-sm">
-          <span className="font-medium text-[#8a8071]">Your store link:</span>
+          <span className="font-medium text-[#9b7886]">Your store link:</span>
           <a
             href={storeUrl}
             target="_blank"
@@ -135,13 +135,13 @@ export default async function Dashboard({
       )}
 
       {searchParams?.saved === "1" && (
-        <div className="mt-4 rounded-xl border border-gold bg-[#faf3e3] p-3 text-center text-sm font-medium text-golddeep">
+        <div className="mt-4 rounded-xl border border-gold bg-[#fff0f5] p-3 text-center text-sm font-medium text-golddeep">
           ✓ Your store settings were saved.
         </div>
       )}
 
       {profile && profile.subscription_status !== "active" && (
-        <div className="mt-4 rounded-xl border border-gold bg-[#faf3e3] p-4">
+        <div className="mt-4 rounded-xl border border-gold bg-[#fff0f5] p-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <span className="text-sm text-golddeep">
               {storeIsLive(profile) ? (
@@ -173,7 +173,7 @@ export default async function Dashboard({
                 />
                 <button className="btn-ghost whitespace-nowrap">Apply code</button>
               </form>
-              <span className="text-xs text-[#8a8071]">
+              <span className="text-xs text-[#9b7886]">
                 Have an invite or test code? Enter it to activate free — no payment.
               </span>
               <form action="/api/stripe/checkout" method="post">
@@ -190,7 +190,7 @@ export default async function Dashboard({
       )}
 
       {profile && profile.subscription_status === "active" && (
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-gold bg-[#faf3e3] p-3 text-sm">
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-gold bg-[#fff0f5] p-3 text-sm">
           <span className="text-golddeep">
             ✓ Your membership is active.
             {searchParams?.sub === "success" && " Thank you for subscribing!"}
@@ -210,7 +210,7 @@ export default async function Dashboard({
         {/* sidebar: categories */}
         <aside>
           <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-xs uppercase tracking-wider text-[#8a8071]">
+            <h2 className="text-xs uppercase tracking-wider text-[#9b7886]">
               Master categories
             </h2>
           </div>
@@ -230,7 +230,7 @@ export default async function Dashboard({
               <li key={m.id} className="text-sm">
                 <details open className="group">
                   <summary className="flex cursor-pointer list-none items-center gap-1 font-medium text-ink hover:text-golddeep">
-                    <span className="text-[10px] text-[#a89e8b] transition group-open:rotate-90">
+                    <span className="text-[10px] text-[#b895a3] transition group-open:rotate-90">
                       ▸
                     </span>
                     {m.name}
@@ -246,7 +246,7 @@ export default async function Dashboard({
                         >
                           <Link
                             href={`/dashboard/channel/${c.id}`}
-                            className="text-sm text-[#6b6152] hover:text-golddeep hover:underline"
+                            className="text-sm text-[#7c5c69] hover:text-golddeep hover:underline"
                           >
                             {c.name} →
                           </Link>
@@ -280,7 +280,7 @@ export default async function Dashboard({
                         </li>
                       ))}
                     {cs.filter((c) => c.master_id === m.id).length === 0 && (
-                      <li className="text-xs text-[#a89e8b]">No designers yet.</li>
+                      <li className="text-xs text-[#b895a3]">No designers yet.</li>
                     )}
                   </ul>
 
@@ -315,7 +315,7 @@ export default async function Dashboard({
               </li>
             ))}
             {ms.length === 0 && (
-              <li className="text-sm text-[#8a8071]">No categories yet.</li>
+              <li className="text-sm text-[#9b7886]">No categories yet.</li>
             )}
           </ul>
 
@@ -347,7 +347,7 @@ export default async function Dashboard({
         <section>
           <div className="flex items-center justify-between">
             <h1 className="font-serif text-3xl font-bold">Inventory</h1>
-            <span className="text-sm text-[#8a8071]">
+            <span className="text-sm text-[#9b7886]">
               {ps.length} items · {ps.filter((p) => p.sold).length} sold
             </span>
           </div>
@@ -424,12 +424,12 @@ export default async function Dashboard({
             </summary>
 
             {searchParams?.saved === "1" && (
-              <p className="mt-3 rounded-lg border border-gold bg-[#faf3e3] px-3 py-2 text-sm text-golddeep">
+              <p className="mt-3 rounded-lg border border-gold bg-[#fff0f5] px-3 py-2 text-sm text-golddeep">
                 ✓ Saved! Your store settings were updated.
               </p>
             )}
 
-            <p className="mt-3 max-w-lg text-sm text-[#6b6152]">
+            <p className="mt-3 max-w-lg text-sm text-[#7c5c69]">
               These are your public shop details. Add a payment option (Venmo,
               PayPal, or Zelle) and it becomes a button buyers can tap to pay you
               directly. Leave a box empty to hide it. <b>Click “Save settings”
@@ -451,7 +451,7 @@ export default async function Dashboard({
                       type="radio"
                       name="theme"
                       value={key}
-                      defaultChecked={(profile?.theme || "gold") === key}
+                      defaultChecked={(profile?.theme || "blush") === key}
                     />
                     <span
                       className="inline-block h-4 w-4 rounded-full"

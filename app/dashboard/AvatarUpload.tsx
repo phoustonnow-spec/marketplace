@@ -59,7 +59,7 @@ export default function AvatarUpload({
           </button>
         )}
       </div>
-      {uploading && <p className="mt-1 text-xs text-[#8a8071]">Uploading…</p>}
+      {uploading && <p className="mt-1 text-xs text-[#9b7886]">Uploading…</p>}
     </div>
   );
 }

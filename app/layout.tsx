@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1f1b16",
+  themeColor: "#ffe7ef",
   width: "device-width",
   initialScale: 1,
 };
@@ -53,7 +53,7 @@ export default function RootLayout({
       <body>
         {children}
         {isStore ? (
-          <footer className="mx-auto max-w-5xl px-6 py-10 text-center text-xs text-[#8a8071]">
+          <footer className="mx-auto max-w-5xl px-6 py-10 text-center text-xs text-[#9b7886]">
             Powered by{" "}
             <a
               href={home}
@@ -74,7 +74,7 @@ export default function RootLayout({
             </a>
           </footer>
         ) : (
-          <footer className="mx-auto max-w-5xl px-6 py-10 text-center text-xs text-[#8a8071]">
+          <footer className="mx-auto max-w-5xl px-6 py-10 text-center text-xs text-[#9b7886]">
             <div className="flex flex-wrap justify-center gap-5">
               <a href="/" className="hover:text-golddeep">
                 Home

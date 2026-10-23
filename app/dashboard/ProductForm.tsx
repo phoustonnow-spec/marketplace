@@ -85,7 +85,7 @@ export default function ProductForm({
         <h3 className="font-serif text-xl font-semibold">
           {isEdit ? "Edit item" : "Add item"}
         </h3>
-        <button type="button" className="text-[#8a8071]" onClick={() => setOpen(false)}>
+        <button type="button" className="text-[#9b7886]" onClick={() => setOpen(false)}>
           ✕
         </button>
       </div>
@@ -113,7 +113,7 @@ export default function ProductForm({
           />
         </label>
       </div>
-      {uploading && <p className="mt-1 text-sm text-[#8a8071]">Uploading…</p>}
+      {uploading && <p className="mt-1 text-sm text-[#9b7886]">Uploading…</p>}
       {photos.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2">
           {photos.map((u, i) => (

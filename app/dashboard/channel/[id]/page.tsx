@@ -82,13 +82,13 @@ export default async function ChannelPage({
     <main className="mx-auto max-w-6xl px-6 pb-24">
       <header className="flex flex-wrap items-center justify-between gap-3 border-b border-line py-5">
         <div>
-          <Link href="/dashboard" className="text-sm text-[#8a8071] hover:text-golddeep">
+          <Link href="/dashboard" className="text-sm text-[#9b7886] hover:text-golddeep">
             ← Back to dashboard
           </Link>
           <h1 className="mt-1 font-serif text-3xl font-bold text-ink">
             {channel.name}
           </h1>
-          <p className="text-sm text-[#8a8071]">
+          <p className="text-sm text-[#9b7886]">
             in {masterName} · {ps.length} item{ps.length === 1 ? "" : "s"}
           </p>
         </div>
@@ -97,7 +97,7 @@ export default async function ChannelPage({
             View sales sheet
           </Link>
           <details className="text-xs">
-            <summary className="cursor-pointer text-[#8a8071]">Rename / delete</summary>
+            <summary className="cursor-pointer text-[#9b7886]">Rename / delete</summary>
             <form action={renameChannel} className="mt-2 flex gap-1">
               <input type="hidden" name="id" value={channel.id} />
               <input name="name" defaultValue={channel.name} className="input !py-1" />
@@ -120,7 +120,7 @@ export default async function ChannelPage({
       </div>
 
       {ps.length === 0 ? (
-        <p className="py-16 text-center text-[#8a8071]">
+        <p className="py-16 text-center text-[#9b7886]">
           No items in {channel.name} yet. Click “Add item” to share your first one.
         </p>
       ) : (
@@ -148,7 +148,7 @@ export default async function ChannelPage({
                   </span>
                 )}
                 {p.on_sheet && (
-                  <span className="absolute left-2 top-2 rounded-full bg-gold px-2 py-1 text-xs font-semibold text-ink">
+                  <span className="absolute left-2 top-2 rounded-full bg-gold px-2 py-1 text-xs font-semibold text-white">
                     On sheet
                   </span>
                 )}
@@ -157,7 +157,7 @@ export default async function ChannelPage({
                 <div className="font-serif text-lg font-semibold">{p.name}</div>
                 <div className="text-golddeep">{fmt(p.price_cents)}</div>
                 {p.description && (
-                  <p className="mt-1 line-clamp-2 text-sm text-[#6b6152]">
+                  <p className="mt-1 line-clamp-2 text-sm text-[#7c5c69]">
                     {p.description}
                   </p>
                 )}

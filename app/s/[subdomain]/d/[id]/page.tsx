@@ -25,7 +25,7 @@ export default async function DesignerPage({
     return (
       <main className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-6 text-center">
         <span className="wordmark text-2xl">market.place</span>
-        <p className="mt-3 text-[#6b6152]">
+        <p className="mt-3 text-[#7c5c69]">
           This shop is taking a short break. Please check back soon.
         </p>
       </main>
@@ -65,7 +65,7 @@ export default async function DesignerPage({
     <main className="mx-auto max-w-6xl px-6 pb-24">
       <Link
         href="/"
-        className="mt-6 inline-block text-sm text-[#8a8071] hover:text-golddeep"
+        className="mt-6 inline-block text-sm text-[#9b7886] hover:text-golddeep"
       >
         ← {profile.display_name || profile.subdomain}
       </Link>
@@ -82,7 +82,7 @@ export default async function DesignerPage({
       </header>
 
       {ps.length === 0 ? (
-        <p className="py-20 text-center text-[#8a8071]">
+        <p className="py-20 text-center text-[#9b7886]">
           Nothing listed under {channel.name} yet.
         </p>
       ) : (

@@ -47,14 +47,14 @@ export default async function SalesSheet({
         {previewMode ? (
           <Link
             href="/dashboard/sales-sheet"
-            className="text-sm text-[#8a8071] hover:text-golddeep"
+            className="text-sm text-[#9b7886] hover:text-golddeep"
           >
             ← Exit preview
           </Link>
         ) : (
           <Link
             href="/dashboard"
-            className="text-sm text-[#8a8071] hover:text-golddeep"
+            className="text-sm text-[#9b7886] hover:text-golddeep"
           >
             ← Back to dashboard
           </Link>
@@ -70,7 +70,7 @@ export default async function SalesSheet({
       </header>
 
       {previewMode && (
-        <p className="no-print mt-3 rounded-lg border border-gold bg-[#faf3e3] px-3 py-2 text-center text-sm text-golddeep">
+        <p className="no-print mt-3 rounded-lg border border-gold bg-[#fff0f5] px-3 py-2 text-center text-sm text-golddeep">
           Preview — this is exactly how your printed / PDF sheet will look.
         </p>
       )}
@@ -83,7 +83,7 @@ export default async function SalesSheet({
           {available.length > 0 ? ` (${available.length} available)` : ""}
         </summary>
         {available.length === 0 ? (
-          <p className="mt-3 text-sm text-[#8a8071]">
+          <p className="mt-3 text-sm text-[#9b7886]">
             All of your items are already on the sheet.
           </p>
         ) : (
@@ -124,7 +124,7 @@ export default async function SalesSheet({
 
       {(profile?.venmo || profile?.paypal || profile?.zelle) && (
         <div className="mb-6 rounded-xl border border-line bg-cream p-4 text-center text-sm">
-          <span className="text-xs uppercase tracking-wider text-[#8a8071]">
+          <span className="text-xs uppercase tracking-wider text-[#9b7886]">
             How to pay
           </span>
           <div className="mt-1 flex flex-wrap justify-center gap-x-6 gap-y-1 text-ink">
@@ -148,7 +148,7 @@ export default async function SalesSheet({
       )}
 
       {onSheet.length === 0 ? (
-        <p className="no-print py-10 text-center text-[#8a8071]">
+        <p className="no-print py-10 text-center text-[#9b7886]">
           Your sales sheet is empty. Use “Add items to this sheet” above to add some.
         </p>
       ) : (
@@ -175,12 +175,12 @@ export default async function SalesSheet({
                   </span>
                 </div>
                 {p.description && (
-                  <p className="mt-1 text-sm text-[#6b6152]">{p.description}</p>
+                  <p className="mt-1 text-sm text-[#7c5c69]">{p.description}</p>
                 )}
                 {storeBase && !p.sold && (
                   <a
                     href={`${storeBase}/p/${p.id}`}
-                    className="mt-2 inline-block rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-ink"
+                    className="btn mt-2"
                   >
                     Purchase this item →
                   </a>

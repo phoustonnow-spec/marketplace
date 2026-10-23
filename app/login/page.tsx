@@ -21,7 +21,7 @@ export default async function LoginPage({
       <div className="card p-8">
         <div className="text-center">
           <span className="wordmark text-3xl">market.place</span>
-          <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#8a8071]">
+          <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#9b7886]">
             Sign in
           </p>
         </div>
@@ -49,7 +49,7 @@ export default async function LoginPage({
           <button className="btn mt-5 w-full py-3">Sign in →</button>
         </form>
 
-        <p className="mt-5 text-center text-sm text-[#8a8071]">
+        <p className="mt-5 text-center text-sm text-[#9b7886]">
           New here?{" "}
           <Link href="/signup" className="text-golddeep underline">
             Create a store

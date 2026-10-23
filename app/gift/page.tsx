@@ -23,13 +23,13 @@ export default function GiftPage({
       </nav>
 
       <h1 className="font-serif text-3xl font-bold text-ink">Gift a membership</h1>
-      <p className="mt-2 text-[#6b6152]">
+      <p className="mt-2 text-[#7c5c69]">
         Give a seller the <b>$1.99/month</b> membership so their store stays live.
         Enter their store address and we’ll activate it after checkout.
       </p>
 
       {state === "done" && (
-        <div className="mt-6 rounded-xl border border-gold bg-[#faf3e3] p-4 text-sm text-golddeep">
+        <div className="mt-6 rounded-xl border border-gold bg-[#fff0f5] p-4 text-sm text-golddeep">
           ✓ Thank you! The membership has been gifted — their store is now active.
         </div>
       )}
@@ -60,15 +60,15 @@ export default function GiftPage({
             autoCapitalize="none"
             required
           />
-          <span className="whitespace-nowrap text-sm text-[#8a8071]">.{root}</span>
+          <span className="whitespace-nowrap text-sm text-[#9b7886]">.{root}</span>
         </div>
-        <p className="mt-1 text-xs text-[#8a8071]">
+        <p className="mt-1 text-xs text-[#9b7886]">
           That’s the part before <b>.{root}</b> in their store link.
         </p>
         <button className="btn mt-5 w-full py-3">Gift membership — $1.99</button>
       </form>
 
-      <p className="mt-8 text-sm text-[#8a8071]">
+      <p className="mt-8 text-sm text-[#9b7886]">
         The recipient needs to have created their store first. After you pay, their
         membership is activated automatically.
       </p>

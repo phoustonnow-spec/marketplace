@@ -5,7 +5,13 @@ export const THEMES: Record<
   string,
   { label: string; accent: string; accentDeep: string; bg: string }
 > = {
-  gold: { label: "Gold", accent: "#a5813f", accentDeep: "#7a5c2c", bg: "#faf6ec" },
+  blush: {
+    label: "Blush",
+    accent: "#e0527d",
+    accentDeep: "#c43e6b",
+    bg: "radial-gradient(1200px 620px at 50% -8%, #fff2f6 0%, #ffe7ef 46%, #fbe4ec 100%)",
+  },
+  gold:{ label: "Gold", accent: "#a5813f", accentDeep: "#7a5c2c", bg: "#faf6ec" },
   pink: { label: "Pink", accent: "#db5a9a", accentDeep: "#b23c78", bg: "#fdeef5" },
   rose: { label: "Rose", accent: "#b0416b", accentDeep: "#872f52", bg: "#fbecf1" },
   navy: { label: "Navy", accent: "#33507f", accentDeep: "#263c60", bg: "#eef1f8" },
@@ -15,5 +21,5 @@ export const THEMES: Record<
 };
 
 export function themeAccent(theme?: string | null) {
-  return THEMES[theme || "gold"] || THEMES.gold;
+  return THEMES[theme || "blush"] || THEMES.blush;
 }

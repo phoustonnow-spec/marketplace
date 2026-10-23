@@ -15,7 +15,7 @@ export default function ResetPage({
       <div className="card p-8">
         <div className="text-center">
           <span className="wordmark text-3xl">market.place</span>
-          <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#8a8071]">
+          <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#9b7886]">
             Set a new password
           </p>
         </div>
