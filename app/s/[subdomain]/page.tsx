@@ -77,6 +77,8 @@ export default async function Storefront({
             {p.photos?.[0] && (
               // eslint-disable-next-line @next/next/no-img-element
               <img
+                loading="lazy"
+                decoding="async"
                 src={p.photos[0]}
                 alt={p.name}
                 className={"h-full w-full object-cover " + (p.sold ? "opacity-50" : "")}
@@ -119,6 +121,8 @@ export default async function Storefront({
           {profile.avatar_url && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
+              loading="lazy"
+              decoding="async"
               src={profile.avatar_url}
               alt=""
               className="h-16 w-16 rounded-full border-2 border-white/70 object-cover"
@@ -210,6 +214,8 @@ export default async function Storefront({
                   {preview && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
+                      loading="lazy"
+                      decoding="async"
                       src={preview}
                       alt=""
                       className="h-full w-full object-cover"
@@ -240,6 +246,8 @@ export default async function Storefront({
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
+                  loading="lazy"
+                  decoding="async"
                   src={p.photos[0]}
                   alt={p.name}
                   className={
@@ -256,6 +264,8 @@ export default async function Storefront({
             ps.find((p) => p.photos?.[0])?.photos?.[0]) && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
+              loading="lazy"
+              decoding="async"
               src={
                 profile.avatar_url || ps.find((p) => p.photos?.[0])!.photos[0]
               }

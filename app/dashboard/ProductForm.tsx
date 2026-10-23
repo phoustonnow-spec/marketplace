@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { shrinkImage } from "@/lib/shrinkImage";
 import { addProduct, updateProduct } from "./actions";
 import type { Product } from "@/lib/types";
 
@@ -29,11 +30,13 @@ export default function ProductForm({
     if (!files.length) return;
     setUploading(true);
     const urls: string[] = [];
-    for (const file of files) {
+    for (const original of files) {
+      const file = await shrinkImage(original);
       const ext = file.name.split(".").pop() || "jpg";
       const path = `${userId}/${crypto.randomUUID()}.${ext}`;
+      // Paths are unique, so browsers can safely cache each photo for a year.
       const { error } = await supabase.storage.from("photos").upload(path, file, {
-        cacheControl: "3600",
+        cacheControl: "31536000",
         upsert: false,
       });
       if (!error) {
@@ -119,7 +122,7 @@ export default function ProductForm({
           {photos.map((u, i) => (
             <div key={i} className="relative">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={u} alt="" className="h-16 w-16 rounded-md object-cover" />
+              <img loading="lazy" decoding="async" src={u} alt="" className="h-16 w-16 rounded-md object-cover" />
               <button
                 type="button"
                 onClick={() => removePhoto(u)}

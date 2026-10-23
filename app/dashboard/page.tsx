@@ -361,6 +361,8 @@ export default async function Dashboard({
                   {p.photos?.[0] && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
+                      loading="lazy"
+                      decoding="async"
                       src={p.photos[0]}
                       alt=""
                       className={

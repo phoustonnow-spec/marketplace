@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { shrinkImage } from "@/lib/shrinkImage";
 
 export default function AvatarUpload({
   userId,
@@ -15,14 +16,15 @@ export default function AvatarUpload({
   const supabase = createClient();
 
   async function onFile(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const original = e.target.files?.[0];
+    if (!original) return;
     setUploading(true);
+    const file = await shrinkImage(original, 600);
     const ext = file.name.split(".").pop() || "jpg";
     const path = `${userId}/avatar-${crypto.randomUUID()}.${ext}`;
     const { error } = await supabase.storage
       .from("photos")
-      .upload(path, file, { upsert: false });
+      .upload(path, file, { cacheControl: "31536000", upsert: false });
     if (!error) {
       const { data } = supabase.storage.from("photos").getPublicUrl(path);
       setUrl(data.publicUrl);

@@ -96,7 +96,7 @@ export default async function SalesSheet({
                 <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded bg-sand">
                   {p.photos?.[0] && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={p.photos[0]} alt="" className="h-full w-full object-cover" />
+                    <img loading="lazy" decoding="async" src={p.photos[0]} alt="" className="h-full w-full object-cover" />
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -159,6 +159,8 @@ export default async function SalesSheet({
                 {p.photos?.[0] && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
+                    loading="lazy"
+                    decoding="async"
                     src={p.photos[0]}
                     alt={p.name}
                     className="h-full w-full object-cover"

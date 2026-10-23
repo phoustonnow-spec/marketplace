@@ -86,6 +86,8 @@ export default async function ProductPage({
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 key={i}
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
                 src={src}
                 alt={`${product.name} photo ${i + 1}`}
                 className="aspect-square w-full flex-none snap-center rounded-xl border border-line object-cover"

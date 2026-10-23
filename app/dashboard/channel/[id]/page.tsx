@@ -137,6 +137,8 @@ export default async function ChannelPage({
                 {p.photos?.[0] && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
+                    loading="lazy"
+                    decoding="async"
                     src={p.photos[0]}
                     alt={p.name}
                     className={"h-full w-full object-cover " + (p.sold ? "opacity-50" : "")}
